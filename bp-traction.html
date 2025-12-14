@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <title>KIRO – Business Plan | Traction</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="css/kiro.css" />
+
+  <style>
+    /* Local-only (ne casse rien ailleurs) */
+    .bp-two { display:grid; grid-template-columns: 1.05fr .95fr; gap: 18px; align-items: stretch; }
+    .bp-three { display:grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .bp-stack { display:grid; gap: 14px; }
+    .bp-tight { max-width: 1120px; margin: 0 auto; padding: 0 18px; }
+
+    .bp-hero-note{
+      margin-top: 14px;
+      display:flex; flex-wrap:wrap; gap:10px;
+      opacity:.92;
+    }
+    .bp-pill{
+      display:inline-flex; align-items:center; gap:8px;
+      padding:8px 10px; border-radius:999px;
+      border:1px solid rgba(148,163,184,.20);
+      background:rgba(2,6,23,.30);
+      font-size:13px;
+    }
+    .bp-pdot{width:10px;height:10px;border-radius:999px;display:inline-block}
+    .bp-pdot.blue{background:rgba(56,189,248,.95); box-shadow:0 0 18px rgba(56,189,248,.25)}
+    .bp-pdot.red{background:rgba(239,68,68,.95); box-shadow:0 0 18px rgba(239,68,68,.18)}
+    .bp-pdot.amber{background:rgba(251,191,36,.95); box-shadow:0 0 18px rgba(251,191,36,.12)}
+    .bp-pdot.gray{background:rgba(148,163,184,.92)}
+
+    .bp-kpis{
+      border-radius: 22px;
+      border: 1px solid rgba(148,163,184,.18);
+      background: rgba(2,6,23,.28);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      padding: 16px;
+    }
+    .bp-kpi-card{
+      border-radius: 20px;
+      border: 1px solid rgba(148,163,184,.18);
+      background: rgba(15,23,42,.28);
+      padding: 16px;
+      min-height: 140px;
+      display:flex; flex-direction:column; justify-content:space-between;
+    }
+    .bp-kpi-label{
+      font-size: 12px;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      opacity: .78;
+    }
+    .bp-kpi-value{
+      font-size: 54px;
+      line-height: 1;
+      font-weight: 850;
+      letter-spacing: -0.04em;
+      margin-top: 10px;
+    }
+    .bp-kpi-value.blue{ color: rgba(56,189,248,.95); }
+    .bp-kpi-value.red{ color: rgba(239,68,68,.95); }
+    .bp-kpi-value.gray{ color: rgba(226,232,240,.92); }
+    .bp-kpi-sub{
+      margin-top: 10px;
+      font-size: 13px;
+      opacity: .84;
+      line-height: 1.45;
+    }
+
+    .bp-list{
+      display:grid; gap: 10px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+    .bp-li{
+      display:flex; gap:10px; align-items:flex-start;
+      padding: 10px 12px;
+      border-radius: 16px;
+      border: 1px solid rgba(148,163,184,.16);
+      background: rgba(2,6,23,.22);
+    }
+    .bp-check{
+      width:22px;height:22px;border-radius:999px;
+      background: rgba(56,189,248,.14);
+      border: 1px solid rgba(56,189,248,.28);
+      display:flex; align-items:center; justify-content:center;
+      flex: 0 0 22px;
+      box-shadow: 0 0 18px rgba(56,189,248,.08);
+      margin-top: 2px;
+    }
+    .bp-li strong{ font-weight: 750; }
+    .bp-li p{ margin:0; opacity:.88; line-height:1.5; font-size:14px; }
+
+    .bp-sources{
+      font-size: 13px;
+      line-height: 1.55;
+      opacity: .88;
+    }
+    .bp-sources a{ color: var(--kiro-accent); text-decoration: none; }
+    .bp-sources a:hover{ text-decoration: underline; }
+
+    /* Charts (réutilise les classes du chapitre 9) */
+    .bp-charts { display:grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    @media (max-width: 980px){
+      .bp-two{ grid-template-columns: 1fr; }
+      .bp-three{ grid-template-columns: 1fr; }
+      .bp-charts{ grid-template-columns: 1fr; }
+      .bp-kpi-value{ font-size: 44px; }
+    }
+  </style>
+</head>
+
+<body data-theme="dark">
+<div class="page">
+
+  <!-- HEADER BP (verrouillé sur la convention Go-to-Market) -->
+  <header class="bp-header">
+    <div class="bp-header-inner">
+      <div class="bp-left">
+        <a href="index.html" title="Retour au site public">
+          <img src="assets/logo-kiro-white.png" class="logo-img logo-light" alt="Kiro" />
+          <img src="assets/logo-kiro-dark.png" class="logo-img logo-dark" alt="Kiro" />
+        </a>
+        <span class="bp-badge">Business Plan</span>
+      </div>
+
+      <nav class="bp-nav">
+        <a class="bp-link" href="bp-executive.html">Executive</a>
+        <a class="bp-link" href="bp-vision.html">Vision</a>
+        <a class="bp-link" href="bp-probleme.html">Problème</a>
+        <a class="bp-link" href="bp-solution.html">Solution</a>
+        <a class="bp-link" href="bp-valeur.html">Valeur</a>
+        <a class="bp-link" href="bp-produit.html">Produit</a>
+        <a class="bp-link" href="bp-marche.html">Marché</a>
+        <a class="bp-link" href="bp-concurrence.html">Concurrence</a>
+        <a class="bp-link" href="bp-modele.html">Modèle</a>
+        <a class="bp-link" href="bp-gotomarket.html">Go-to-Market</a>
+        <a class="bp-link" href="bp-organisation.html">Organisation</a>
+        <a class="bp-link is-active" href="bp-traction.html">Traction</a>
+        <a class="bp-link" href="bp-financials.html">Finances</a>
+        <a class="bp-link" href="bp-risks.html">Risques</a>
+        <a class="bp-link" href="bp-conclusion.html">Conclusion</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- HERO -->
+    <section class="hero" style="padding:110px 0 70px;">
+      <div class="hero-inner">
+        <div class="section-kicker">Chapitre 11</div>
+        <h1 class="hero-title">Traction & Indicateurs</h1>
+        <p class="hero-subtitle" style="max-width: 980px;">
+          KIRO n’est pas encore à grande échelle. L’objectif n’est pas “du volume pour du volume”, mais une traction
+          <strong>mesurable</strong>, <strong>reproductible</strong> et <strong>scalable</strong> sur un terrain clair :
+          PME & cabinets (Région Centre → France).
+        </p>
+
+<div class="bp-hero-note" aria-label="Moteur de traction">
+  <span class="bp-pill"><span class="bp-pdot blue"></span> Signer vite (preuve)</span>
+  <span class="bp-pill"><span class="bp-pdot amber"></span> Activer (valeur)</span>
+  <span class="bp-pill"><span class="bp-pdot gray"></span> Retenir + étendre</span>
+  <span class="bp-pill"><span class="bp-pdot red"></span> Churn sous contrôle</span>
+</div>
+
+      </div>
+    </section>
+
+    <!-- KPI YEAR 1 (aligné avec chap 9: 15 clients fin A1) -->
+    <section class="section">
+      <div class="section-inner">
+        <div class="card light-card glow-blue">
+          <div class="section-kicker">Cibles année 1</div>
+          <h2 class="card-title">Piloter la validation terrain (pas la vanité).</h2>
+          <p class="card-text" style="max-width: 980px;">
+            Les objectifs A1 sont volontairement “propres” et cohérents avec le Go-to-Market : un portefeuille réduit,
+            une activation rapide, une rétention forte, puis expansion par ajout d’agents.
+          </p>
+        </div>
+
+        <div class="bp-kpis" style="margin-top:14px;">
+          <div class="bp-three">
+            <div class="bp-kpi-card">
+              <div>
+                <div class="bp-kpi-label">Clients actifs (fin A1)</div>
+                <div class="bp-kpi-value blue">15</div>
+                <div class="bp-kpi-sub">Cohérent avec le funnel du chapitre 9 (validation + cas clients).</div>
+              </div>
+              <div class="bp-proof"><strong>Lecture:</strong> 15 clients “bien activés” &gt; 50 clients tièdes.</div>
+            </div>
+
+            <div class="bp-kpi-card">
+              <div>
+                <div class="bp-kpi-label">MRR cible (fin A1)</div>
+                <div class="bp-kpi-value blue">25–35k€</div>
+                <div class="bp-kpi-sub">≈ 15 clients × 1.7–2.3k€ (mix Operate/Pro + expansion agents).</div>
+              </div>
+              <div class="bp-proof"><strong>Signal fort:</strong> MRR porté par la valeur opérationnelle, pas “l’IA”.</div>
+            </div>
+
+            <div class="bp-kpi-card">
+              <div>
+                <div class="bp-kpi-label">Churn logo (mensuel)</div>
+                <div class="bp-kpi-value red">&lt; 3%</div>
+                <div class="bp-kpi-sub">Objectif conservateur: le churn est plus faible quand la tâche automatisée est critique.</div>
+              </div>
+              <div class="bp-proof"><strong>Focus:</strong> onboarding + adoption + preuve ROI.</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- SIGNALS (réels) + KPIs de pilotage -->
+    <section class="section section-alt">
+      <div class="section-inner bp-two">
+
+        <div class="card">
+          <div class="section-kicker">Traction actuelle</div>
+          <h2 class="card-title">Signaux faibles, mais réels.</h2>
+          <p class="card-text">
+            KIRO est en phase de pré-commercialisation structurée. L’objectif n’est pas le volume, mais la validation
+            terrain: problèmes récurrents, capacité à livrer vite, et compréhension immédiate de la proposition.
+          </p>
+
+          <ul class="bp-list" style="margin-top:12px;">
+            <li class="bp-li">
+              <div class="bp-check">✓</div>
+              <p><strong>Intérêt confirmé</strong> de dirigeants PME/cabinets pour un “chef d’orchestre” opérationnel.</p>
+            </li>
+            <li class="bp-li">
+              <div class="bp-check">✓</div>
+              <p><strong>Douleurs identifiées</strong> (back-office, coordination, relances, reporting) partout et tout le temps.</p>
+            </li>
+            <li class="bp-li">
+              <div class="bp-check">✓</div>
+              <p><strong>Livraison rapide</strong> : automatiser une tâche concrète en quelques jours (pas en trimestres).</p>
+            </li>
+            <li class="bp-li">
+              <div class="bp-check">✓</div>
+              <p><strong>Modèle compris</strong> sans évangélisation IA : “temps gagné / erreurs évitées / pilotage”.</p>
+            </li>
+          </ul>
+
+          <div class="bp-proof" style="margin-top:12px;">
+            <strong>Hypothèse validée:</strong> les PME paient pour du temps récupéré, pas pour de la technologie.
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="section-kicker">KPIs de pilotage</div>
+          <h2 class="card-title">Ce qu’on mesure (vraiment).</h2>
+          <p class="card-text">
+            Les indicateurs sont conçus pour piloter une croissance saine : acquisition maîtrisée, activation rapide,
+            valeur mesurée, expansion, churn sous contrôle.
+          </p>
+
+          <div class="bp-stack" style="margin-top:12px;">
+            <div class="bp-proof">
+              <strong>Acquisition:</strong> # audits / semaine, taux audit → proposition, taux proposition → signature
+            </div>
+            <div class="bp-proof">
+              <strong>Activation:</strong> time-to-first-value (TTFV), % tâches automatisées en prod à J+30
+            </div>
+            <div class="bp-proof">
+              <strong>Rétention:</strong> logo churn, revenue churn, GRR/NRR (rétention brute / nette)
+            </div>
+            <div class="bp-proof">
+              <strong>Expansion:</strong> agents ajoutés / client, ARPA (revenu moyen / compte), upsell sans friction
+            </div>
+            <div class="bp-proof">
+              <strong>Efficience:</strong> CAC (piloté), payback, marge brute, charge de support / compte
+            </div>
+          </div>
+
+          <p class="bp-mini" style="margin-top:12px;">
+            Objectif : atteindre rapidement des métriques “investisseur-grade” (rétention + expansion), puis accélérer.
+          </p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- PROJECTIONS (3 ans) : clients & MRR + “mini-réservoir” -->
+    <section class="section">
+      <div class="section-inner">
+
+        <div class="section-kicker">Projection simple</div>
+        <h2 class="section-title">3 ans, cohérents avec le Go-to-Market.</h2>
+        <p class="section-subtitle" style="max-width: 980px;">
+          La trajectoire repose sur un cycle court (audit → valeur → expansion), et sur l’augmentation du revenu par client
+          (ajout d’agents), plus que sur la volumétrie brute.
+        </p>
+
+        <div class="bp-charts" style="margin-top: 14px;">
+
+          <!-- New customers / year (reprend l'échelle du chap 9) -->
+          <div class="bp-chart">
+            <div class="bp-chart-head">
+              <h3 class="bp-chart-title">Nouveaux clients / an</h3>
+              <p class="bp-chart-sub">Trajectoire 3 ans (Chapitre 9)</p>
+            </div>
+
+            <svg class="bp-svg" viewBox="0 0 520 320" role="img" aria-label="Bar chart nouveaux clients par an">
+              <rect x="40" y="20" width="460" height="240" rx="14" fill="rgba(2,6,23,0.35)" stroke="rgba(148,163,184,0.18)"/>
+              <line class="bp-gridline" x1="40" y1="260" x2="500" y2="260"></line>
+              <line class="bp-gridline" x1="40" y1="200" x2="500" y2="200"></line>
+              <line class="bp-gridline" x1="40" y1="140" x2="500" y2="140"></line>
+              <line class="bp-gridline" x1="40" y1="80"  x2="500" y2="80"></line>
+              <line class="bp-gridline" x1="40" y1="20"  x2="500" y2="20"></line>
+
+              <text class="bp-tick" x="12" y="264">0</text>
+              <text class="bp-tick" x="8"  y="204">20</text>
+              <text class="bp-tick" x="8"  y="144">40</text>
+              <text class="bp-tick" x="8"  y="84">80</text>
+
+              <rect class="bp-bar-soft" x="95"  y="60" width="90" height="200" rx="12"></rect>
+              <rect class="bp-bar-soft" x="215" y="60" width="90" height="200" rx="12"></rect>
+              <rect class="bp-bar-soft" x="335" y="60" width="90" height="200" rx="12"></rect>
+
+              <!-- bars (anim JS) -->
+              <rect class="bp-bar" data-bar="15" x="95"  y="260" width="90" height="0" rx="12"></rect>
+              <rect class="bp-bar" data-bar="40" x="215" y="260" width="90" height="0" rx="12"></rect>
+              <rect class="bp-bar" data-bar="80" x="335" y="260" width="90" height="0" rx="12"></rect>
+
+              <text class="bp-bar-label" x="140" y="292" text-anchor="middle">Année 1</text>
+              <text class="bp-bar-label" x="260" y="292" text-anchor="middle">Année 2</text>
+              <text class="bp-bar-label" x="380" y="292" text-anchor="middle">Année 3</text>
+
+              <text class="bp-bar-value" data-barval="15" x="140" y="252" text-anchor="middle" opacity="0">15</text>
+              <text class="bp-bar-value" data-barval="40" x="260" y="252" text-anchor="middle" opacity="0">40</text>
+              <text class="bp-bar-value" data-barval="80" x="380" y="252" text-anchor="middle" opacity="0">80</text>
+            </svg>
+
+            <p class="bp-chart-note">
+              Focus: qualité + activation. A1 = preuve, A2 = structuration, A3 = accélération.
+            </p>
+          </div>
+
+          <!-- MRR end of year (projection lisible) -->
+          <div class="bp-chart">
+            <div class="bp-chart-head">
+              <h3 class="bp-chart-title">MRR (fin d’année)</h3>
+              <p class="bp-chart-sub">Projection simple</p>
+            </div>
+
+            <svg class="bp-svg" viewBox="0 0 520 320" role="img" aria-label="Bar chart MRR fin d'année">
+              <rect x="40" y="20" width="460" height="240" rx="14" fill="rgba(2,6,23,0.35)" stroke="rgba(148,163,184,0.18)"/>
+
+              <!-- Gridlines (0, 100, 200, 400 k€) -->
+              <line class="bp-gridline" x1="40" y1="260" x2="500" y2="260"></line>
+              <line class="bp-gridline" x1="40" y1="200" x2="500" y2="200"></line>
+              <line class="bp-gridline" x1="40" y1="140" x2="500" y2="140"></line>
+              <line class="bp-gridline" x1="40" y1="80"  x2="500" y2="80"></line>
+              <line class="bp-gridline" x1="40" y1="20"  x2="500" y2="20"></line>
+
+              <text class="bp-tick" x="6" y="264">0</text>
+              <text class="bp-tick" x="0" y="204">100k</text>
+              <text class="bp-tick" x="0" y="144">200k</text>
+              <text class="bp-tick" x="0" y="84">400k</text>
+
+              <rect class="bp-bar-soft" x="95"  y="60" width="90" height="200" rx="12"></rect>
+              <rect class="bp-bar-soft" x="215" y="60" width="90" height="200" rx="12"></rect>
+              <rect class="bp-bar-soft" x="335" y="60" width="90" height="200" rx="12"></rect>
+
+              <!-- Scale max=400k -> height 200 -->
+              <!-- A1=30k => 15px ; A2=130k => 65px ; A3=380k => 190px -->
+              <rect class="bp-bar" data-barpx="15" x="95"  y="260" width="90" height="0" rx="12"></rect>
+              <rect class="bp-bar" data-barpx="65" x="215" y="260" width="90" height="0" rx="12"></rect>
+              <rect class="bp-bar" data-barpx="190" x="335" y="260" width="90" height="0" rx="12"></rect>
+
+              <text class="bp-bar-label" x="140" y="292" text-anchor="middle">Année 1</text>
+              <text class="bp-bar-label" x="260" y="292" text-anchor="middle">Année 2</text>
+              <text class="bp-bar-label" x="380" y="292" text-anchor="middle">Année 3</text>
+
+              <text class="bp-bar-value" data-barvalpx="15"  x="140" y="252" text-anchor="middle" opacity="0">~30k€</text>
+              <text class="bp-bar-value" data-barvalpx="65"  x="260" y="252" text-anchor="middle" opacity="0">~130k€</text>
+              <text class="bp-bar-value" data-barvalpx="190" x="380" y="252" text-anchor="middle" opacity="0">~380k€</text>
+            </svg>
+
+            <p class="bp-chart-note">
+              Hypothèse simple: hausse du revenu par client via expansion agents (Operate → Pro, puis +agents).
+            </p>
+          </div>
+
+        </div>
+
+        <div class="section-inner" style="margin-top: 16px;">
+          <div class="card">
+            <div class="section-kicker">Lecture investisseur</div>
+            <h2 class="card-title">Le moteur: rétention + expansion.</h2>
+            <p class="card-text" style="max-width: 980px;">
+              L’objectif n’est pas d’acheter de la croissance. C’est de construire un “noyau dur” :
+              des clients activés, un churn contenu, et une expansion naturelle quand de nouveaux agents sont ajoutés.
+            </p>
+
+            <div class="bp-three" style="margin-top: 12px;">
+              <div class="bp-proof">
+                <strong>GRR (rétention brute):</strong> viser &gt; 90% à mesure que la base s’élargit.
+              </div>
+              <div class="bp-proof">
+                <strong>NRR (rétention nette):</strong> viser ~100–115% via expansion (agents).
+              </div>
+              <div class="bp-proof">
+                <strong>Payback CAC:</strong> piloté, en phase avec un sales cycle court (audit → valeur).
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="section-cta-row" style="margin-top:28px;">
+          <a href="bp-finance.html" class="btn-primary">Chapitre suivant : Finances</a>
+          <a href="bp-organisation.html" class="btn-ghost">Retour à Organisation & Exécution</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- SOURCES -->
+    <section class="section section-alt">
+      <div class="section-inner">
+        <div class="card">
+          <div class="section-kicker">Sources (repères marché)</div>
+          <h2 class="card-title">Benchmarks & repères utilisés.</h2>
+          <p class="card-text">
+            Les chiffres ci-dessus sont des objectifs internes (pilotage). Les repères ci-dessous servent à cadrer ce qui est “normal”
+            sur du SaaS B2B (rétention, NRR/GRR, benchmarks).
+          </p>
+
+          <div class="bp-sources" style="margin-top: 10px;">
+            <ul style="margin:0; padding-left:18px; display:grid; gap:10px;">
+              <li>
+                <strong>KeyBanc Capital Markets – SaaS Survey</strong> (benchmarks NRR/GRR, métriques SaaS) :
+                <a href="https://www.key.com/kco/images/KeyBanc_SaaS_Survey.pdf" target="_blank" rel="noopener">KeyBanc SaaS Survey (PDF)</a>
+              </li>
+              <li>
+                <strong>OpenView – SaaS Benchmarks</strong> (repères de croissance/efficience) :
+                <a href="https://openviewpartners.com/saas-benchmarks/" target="_blank" rel="noopener">OpenView SaaS Benchmarks</a>
+              </li>
+              <li>
+                <strong>Bessemer – State of the Cloud</strong> (repères NRR et métriques cloud) :
+                <a href="https://www.bvp.com/state-of-the-cloud" target="_blank" rel="noopener">Bessemer State of the Cloud</a>
+              </li>
+              <li>
+                <strong>INSEE (France) – définitions & statistiques d’entreprises</strong> (contexte marché) :
+                <a href="https://www.insee.fr/fr/statistiques" target="_blank" rel="noopener">INSEE Statistiques</a>
+              </li>
+            </ul>
+
+
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<script>
+  // Animations simples (comme chapitre 9)
+  (function(){
+    // bars (data-bar: scale max=80 -> height 200)
+    document.querySelectorAll('.bp-bar[data-bar]').forEach((bar) => {
+      const v = parseFloat(bar.getAttribute('data-bar') || '0');
+      const h = Math.max(0, Math.min(200, (v / 80) * 200));
+      const y = 260 - h;
+      requestAnimationFrame(() => {
+        bar.style.transition = 'all 900ms cubic-bezier(.2,.8,.2,1)';
+        bar.setAttribute('y', String(y));
+        bar.setAttribute('height', String(h));
+      });
+    });
+
+    // bars (pixel scale already)
+    document.querySelectorAll('.bp-bar[data-barpx]').forEach((bar) => {
+      const h = parseFloat(bar.getAttribute('data-barpx') || '0');
+      const y = 260 - h;
+      requestAnimationFrame(() => {
+        bar.style.transition = 'all 900ms cubic-bezier(.2,.8,.2,1)';
+        bar.setAttribute('y', String(y));
+        bar.setAttribute('height', String(h));
+      });
+    });
+
+    // values appear
+    document.querySelectorAll('.bp-bar-value[data-barval]').forEach((t) => {
+      setTimeout(() => t.setAttribute('opacity','1'), 650);
+    });
+    document.querySelectorAll('.bp-bar-value[data-barvalpx]').forEach((t) => {
+      setTimeout(() => t.setAttribute('opacity','1'), 650);
+    });
+  })();
+</script>
+
+</body>
+</html>

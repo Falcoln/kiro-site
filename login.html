@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <title>KIRO – Connexion client</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="css/kiro.css" />
+
+  <style>
+    .auth-page {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .auth-main {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 40px 16px;
+    }
+
+    .auth-card {
+      width: 100%;
+      max-width: 420px;
+      background: #060a12;
+      border-radius: 20px;
+      border: 1px solid rgba(255,255,255,0.12);
+      padding: 28px 26px 30px;
+      box-shadow: 0 18px 60px rgba(0,0,0,0.7);
+    }
+
+    .auth-title {
+      font-size: 22px;
+      margin-bottom: 6px;
+    }
+
+    .auth-subtitle {
+      font-size: 13px;
+      color: var(--text-soft);
+      margin-bottom: 18px;
+    }
+
+    .auth-form-group {
+      margin-bottom: 14px;
+    }
+
+    .auth-label {
+      display: block;
+      font-size: 13px;
+      margin-bottom: 4px;
+    }
+
+    .auth-input {
+      width: 100%;
+      padding: 10px 12px;
+      border-radius: 10px;
+      border: 1px solid rgba(255,255,255,0.16);
+      background: #020510;
+      color: #fff;
+      font-size: 14px;
+    }
+
+    .auth-input:focus {
+      outline: none;
+      border-color: var(--aqua);
+    }
+
+    .auth-footer {
+      margin-top: 12px;
+      font-size: 12px;
+      color: var(--text-soft);
+    }
+
+    .auth-footer a {
+      color: var(--aqua);
+    }
+
+    .auth-remember {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      color: var(--text-soft);
+      margin-bottom: 10px;
+    }
+
+    .auth-error {
+      margin-top: 12px;
+      color: #ff6b6b;
+      font-size: 13px;
+      text-align: center;
+      display: none;
+    }
+  </style>
+</head>
+
+<body data-theme="dark">
+<div class="auth-page">
+
+  <!-- HEADER -->
+<header>
+  <div class="nav-left">
+    <a href="index.html">
+      <img src="assets/logo-kiro-white.png" class="logo-img logo-light" />
+      <img src="assets/logo-kiro-dark.png" class="logo-img logo-dark" />
+    </a>
+  </div>
+
+  <nav>
+    <a href="product.html" class="nav-link">Produit</a>
+    <a href="agents.html" class="nav-link">Agents</a>
+    <a href="pricing.html" class="nav-link">Tarifs</a>
+    <a href="about.html" class="nav-link">À propos</a>
+    <a href="security.html" class="nav-link">Sécurité & données</a>
+
+    <!-- CTA principal -->
+    <a href="pricing.html#contact" class="nav-cta-primary">Audit gratuit</a>
+
+    <!-- Espace client -->
+    <a href="login.html" class="nav-cta">Espace client</a>
+  </nav>
+</header>
+
+
+
+  <!-- MAIN -->
+  <main class="auth-main">
+    <div class="auth-card">
+      <h1 class="auth-title">Espace client</h1>
+      <p class="auth-subtitle">
+        Connectez-vous pour accéder à vos factures, projets, tickets et documents.
+      </p>
+
+      <form id="loginForm">
+        <div class="auth-form-group">
+          <label class="auth-label" for="email">Email</label>
+          <input class="auth-input" type="email" id="email" required />
+        </div>
+
+        <div class="auth-form-group">
+          <label class="auth-label" for="password">Mot de passe</label>
+          <input class="auth-input" type="password" id="password" required />
+        </div>
+
+        <div class="auth-remember">
+          <input type="checkbox" id="remember" />
+          <label for="remember">Rester connecté</label>
+        </div>
+
+        <button type="submit" class="btn-primary" style="width:100%; text-align:center;">
+          Se connecter
+        </button>
+
+        <div id="authError" class="auth-error"></div>
+      </form>
+    </div>
+  </main>
+
+  <footer>
+    © KIRO – Votre intelligence étendue.
+  </footer>
+
+</div>
+
+<!-- SUPABASE SDK -->
+<script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+
+<script>
+  // ----------------------------------------------------------
+  // 1. CONFIGURATION SUPABASE (À REMPLACER PAR TES VALEURS)
+  // ----------------------------------------------------------
+const SUPABASE_URL = "https://qnksyvjpqqrcnfcpidda.supabase.co";
+const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFua3N5dmpwcXFyY25mY3BpZGRhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjUzNTQ0NTMsImV4cCI6MjA4MDkzMDQ1M30.pUyY59t04Ik0jJ6It6YSPdL9WyJ0MlC4Hd4u9EyM4XI";
+
+const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+
+  // ----------------------------------------------------------
+  // 2. LOGIQUE DE LOGIN
+  // ----------------------------------------------------------
+  const form = document.getElementById("loginForm");
+  const errorBox = document.getElementById("authError");
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    errorBox.style.display = "none";
+    errorBox.textContent = "";
+
+    const email = document.getElementById("email").value.trim();
+    const password = document.getElementById("password").value.trim();
+
+    const { data, error } = await supabase.auth.signInWithPassword({
+      email,
+      password
+    });
+
+    console.log("Résultat auth:", { data, error });
+
+    if (error) {
+      errorBox.style.display = "block";
+      errorBox.textContent = error.message;
+      return;
+    }
+
+    // Succès → redirection vers le dashboard
+    window.location.href = "client.html";
+  });
+</script>
+
+</body>
+</html>

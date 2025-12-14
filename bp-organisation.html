@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <title>KIRO – Business Plan | 10. Organisation & Exécution</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="css/kiro.css" />
+  <style>
+    /* BP-only (safe, namespaced) */
+    .bp-wrap{max-width:1120px;margin:0 auto;padding:48px 18px 80px;}
+    .bp-hero{padding:22px 0 10px;text-align:center}
+    .bp-kicker{font-size:12px;letter-spacing:.22em;text-transform:uppercase;opacity:.7}
+    .bp-hero h1{font-size:56px;letter-spacing:-.04em;line-height:1.05;margin:10px 0 10px}
+    .bp-sub{max-width:80ch;margin:0 auto;opacity:.86;font-size:18px}
+    @media (max-width:840px){.bp-hero h1{font-size:40px}}
+
+    .bp-grid{display:grid;grid-template-columns:1fr;gap:14px;margin-top:22px}
+    .bp-grid.two{grid-template-columns:1fr 1fr}
+    .bp-grid.three{grid-template-columns:1fr 1fr 1fr}
+    @media (max-width:980px){.bp-grid.two,.bp-grid.three{grid-template-columns:1fr}}
+
+    .bp-card{
+      border-radius:22px;
+      border:1px solid rgba(148,163,184,.22);
+      background:rgba(2,6,23,.35);
+      box-shadow:0 18px 55px rgba(0,0,0,.28);
+      padding:18px;
+    }
+    .bp-card.light{
+      background:rgba(255,255,255,.92);
+      color:#0b1220;
+      border-color:rgba(15,23,42,.10);
+    }
+
+    .bp-title{font-size:22px;letter-spacing:-.02em;margin:2px 0 8px}
+    .bp-muted{opacity:.78}
+    .bp-mini{font-size:12px;letter-spacing:.18em;text-transform:uppercase;opacity:.75}
+    .bp-list{margin:10px 0 0;display:grid;gap:8px}
+    .bp-bullet{display:flex;gap:10px;align-items:flex-start}
+    .bp-dot{width:10px;height:10px;border-radius:999px;margin-top:6px;flex:0 0 auto;background:rgba(148,163,184,.65)}
+    .bp-dot.blue{background:rgba(56,189,248,.95)}
+    .bp-dot.cyan{background:rgba(34,211,238,.95)}
+    .bp-dot.red{background:rgba(239,68,68,.95)}
+    .bp-dot.amber{background:rgba(245,158,11,.95)}
+
+    .bp-metric{
+      display:flex;flex-direction:column;gap:6px;
+      border-radius:18px;border:1px solid rgba(148,163,184,.18);
+      background:rgba(2,6,23,.28);
+      padding:14px 14px 12px;
+    }
+    .bp-metric .val{font-size:34px;font-weight:1000;letter-spacing:-.02em;line-height:1}
+    .bp-metric .lbl{font-size:12px;letter-spacing:.18em;text-transform:uppercase;opacity:.78}
+    .bp-metric .desc{opacity:.9}
+
+    /* Org chart */
+    .org{
+      display:grid;gap:12px;
+    }
+    .org-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
+    @media (max-width:980px){.org-row{grid-template-columns:1fr}}
+    .org-node{
+      border-radius:18px;border:1px solid rgba(148,163,184,.20);
+      background:rgba(2,6,23,.24);
+      padding:14px;
+      position:relative;
+      overflow:hidden;
+    }
+    .org-node::before{
+      content:"";
+      position:absolute;inset:-80px -120px auto auto;
+      width:220px;height:220px;border-radius:999px;
+      background:radial-gradient(circle, rgba(56,189,248,.18), transparent 60%);
+      pointer-events:none;
+    }
+    .org-role{font-weight:950;letter-spacing:-.01em}
+    .org-tag{display:inline-flex;align-items:center;gap:8px;margin-top:8px;
+      font-size:12px;letter-spacing:.12em;text-transform:uppercase;opacity:.8}
+    .org-tag span{width:10px;height:10px;border-radius:999px;background:rgba(148,163,184,.55)}
+    .org-tag .b{background:rgba(56,189,248,.9)}
+    .org-tag .c{background:rgba(34,211,238,.9)}
+    .org-tag .a{background:rgba(245,158,11,.9)}
+
+    /* Timeline */
+    .tl{display:grid;gap:12px}
+    .tl-step{
+      display:grid;
+      grid-template-columns: 110px 1fr;
+      gap:14px;
+      align-items:flex-start;
+      padding:14px;
+      border-radius:18px;
+      border:1px solid rgba(148,163,184,.18);
+      background:rgba(2,6,23,.24);
+    }
+    @media (max-width:720px){.tl-step{grid-template-columns:1fr}}
+    .tl-chip{
+      display:inline-flex;align-items:center;justify-content:center;
+      padding:8px 10px;border-radius:999px;
+      border:1px solid rgba(56,189,248,.35);
+      background:rgba(56,189,248,.10);
+      font-weight:950;font-size:12px;letter-spacing:.14em;text-transform:uppercase;
+      color:rgba(56,189,248,.95);
+      width:max-content;
+    }
+    .tl-title{font-size:18px;font-weight:950;letter-spacing:-.01em}
+    .tl-desc{opacity:.86;margin-top:4px}
+    .tl-kpis{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+    .kpi{
+      display:inline-flex;gap:8px;align-items:center;
+      padding:7px 10px;border-radius:999px;
+      border:1px solid rgba(148,163,184,.18);
+      background:rgba(2,6,23,.30);
+      font-size:13px;opacity:.92;
+    }
+    .kpi i{display:inline-block;width:8px;height:8px;border-radius:999px;background:rgba(148,163,184,.55)}
+    .kpi .b{background:rgba(56,189,248,.95)}
+    .kpi .c{background:rgba(34,211,238,.95)}
+    .kpi .r{background:rgba(239,68,68,.92)}
+    .kpi .a{background:rgba(245,158,11,.92)}
+
+
+  </style>
+</head>
+
+<body>
+  <!-- Header “chapitres BP” -->
+<header class="bp-header">
+  <div class="bp-header-inner">
+
+    <div class="bp-left">
+      <a href="index.html" title="Retour au site public">
+        <img src="assets/logo-kiro-white.png" class="logo-img logo-light" alt="Kiro" />
+     
+      </a>
+      <span class="bp-badge">Business Plan</span>
+    </div>
+
+    <nav class="bp-nav">
+      <a class="bp-link" href="bp-executive.html">Executive</a>
+      <a class="bp-link" href="bp-vision.html">Vision</a>
+      <a class="bp-link" href="bp-probleme.html">Problème</a>
+      <a class="bp-link" href="bp-solution.html">Solution</a>
+      <a class="bp-link" href="bp-valeur.html">Valeur</a>
+      <a class="bp-link" href="bp-produit.html">Produit</a>
+      <a class="bp-link" href="bp-marche.html">Marché</a>
+      <a class="bp-link" href="bp-concurrence.html">Concurrence</a>
+      <a class="bp-link" href="bp-modele.html">Modèle</a>
+      <a class="bp-link" href="bp-gotomarket.html">Go-to-Market</a>
+      <a class="bp-link active" href="bp-organisation.html">Organisation</a>
+      <a class="bp-link" href="bp-traction.html">Traction</a>
+      <a class="bp-link" href="bp-financials.html">Finances</a>
+      <a class="bp-link" href="bp-risks.html">Risques</a>
+      <a class="bp-link" href="bp-conclusion.html">Conclusion</a>
+    </nav>
+
+  </div>
+</header>
+
+
+  <main class="bp-wrap">
+    <section class="bp-hero">
+      <div class="bp-kicker">Chapitre 10</div>
+      <h1>Organisation & Exécution</h1>
+      <p class="bp-sub">
+        KIRO n’est pas “juste une vision”. C’est un plan d’exécution concret : livrer des agents utiles, les déployer chez les PME, et
+        transformer chaque client en preuve de scalabilité.
+      </p>
+    </section>
+
+    <!-- 3 métriques de crédibilité -->
+    <section class="bp-grid three" style="margin-top:18px">
+      <div class="bp-card">
+        <div class="bp-metric">
+          <div class="lbl">Approche</div>
+          <div class="val">Build → Deploy → Learn</div>
+          <div class="desc">Un cycle court orienté terrain: chaque version doit produire du résultat chez un client.</div>
+        </div>
+      </div>
+      <div class="bp-card">
+        <div class="bp-metric">
+          <div class="lbl">Objectif 12 mois</div>
+          <div class="val">Références</div>
+          <div class="desc">Construire une base de clients “preuve”, avec des cas d’usage répétables (PME & cabinets).</div>
+        </div>
+      </div>
+      <div class="bp-card">
+        <div class="bp-metric">
+          <div class="lbl">Moteur</div>
+          <div class="val">Méthode</div>
+          <div class="desc">Standardiser le delivery (audit → setup → run), puis industrialiser.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Structure actuelle + cible -->
+    <section class="bp-grid two">
+      <div class="bp-card">
+        <div class="bp-mini">Structure actuelle</div>
+        <div class="bp-title">Une exécution “lean”, centrée sur le terrain.</div>
+        <p class="bp-muted">
+          KIRO démarre avec une structure légère (SASU) pour maximiser la vitesse et réduire la friction.
+          La priorité: livrer des automatisations qui marchent, puis construire l’équipe au rythme des preuves.
+        </p>
+
+        <div class="bp-list">
+          <div class="bp-bullet"><span class="bp-dot blue"></span>
+            <div><strong>Direction produit & exécution</strong> : conception des agents, cadrage des déploiements, qualité et résultats.</div>
+          </div>
+          <div class="bp-bullet"><span class="bp-dot gray"></span>
+            <div><strong>Support & opérations</strong> : gestion des retours, documentation, suivi des incidents (processus simple).</div>
+          </div>
+          <div class="bp-bullet"><span class="bp-dot amber"></span>
+            <div><strong>Go-to-market</strong> : acquisition locale (Région Centre), réseau, partenariats, démonstrations orientées usage.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="bp-card light">
+        <div class="bp-mini">Cible à 12–18 mois</div>
+        <div class="bp-title">Une équipe “compacte”, ultra orientée delivery.</div>
+        <p class="bp-muted" style="opacity:.9">
+          L’objectif n’est pas d’empiler les rôles. L’objectif est d’assurer: (1) une qualité produit solide,
+          (2) des déploiements rapides, (3) une rétention forte.
+        </p>
+
+        <div class="bp-list">
+          <div class="bp-bullet"><span class="bp-dot blue"></span>
+            <div><strong>1 Dev full-stack</strong> : plateforme, intégrations, fiabilité.</div>
+          </div>
+          <div class="bp-bullet"><span class="bp-dot cyan"></span>
+            <div><strong>1 Automation/Agent builder</strong> : pack d’agents, templates, industrialisation.</div>
+          </div>
+          <div class="bp-bullet"><span class="bp-dot amber"></span>
+            <div><strong>1 Customer Success</strong> : onboarding, adoption, expansion, churn control.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Organigramme visuel -->
+    <section class="bp-card">
+      <div class="bp-mini">Organisation cible (simple)</div>
+      <div class="bp-title">Un “triangle de performance”: produit, delivery, rétention.</div>
+      <div class="org" style="margin-top:12px">
+        <div class="org-node">
+          <div class="org-role">Fondateur / CEO</div>
+          <div class="bp-muted">Vision, arbitrages produit, qualité des déploiements, partenariats.</div>
+          <div class="org-tag"><span class="b"></span> Priorité : résultats clients</div>
+        </div>
+
+        <div class="org-row">
+          <div class="org-node">
+            <div class="org-role">Produit & Plateforme</div>
+            <div class="bp-muted">Agents, intégrations, sécurité, monitoring.</div>
+            <div class="org-tag"><span class="c"></span> KPI : fiabilité</div>
+          </div>
+          <div class="org-node">
+            <div class="org-role">Delivery & Setup</div>
+            <div class="bp-muted">Audit, configuration, déploiement, documentation.</div>
+            <div class="org-tag"><span class="a"></span> KPI : temps de déploiement</div>
+          </div>
+          <div class="org-node">
+            <div class="org-role">Customer Success</div>
+            <div class="bp-muted">Onboarding, expansion, support, churn.</div>
+            <div class="org-tag"><span class="b"></span> KPI : rétention</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Méthode d’exécution -->
+    <section class="bp-grid two">
+      <div class="bp-card">
+        <div class="bp-mini">Méthode</div>
+        <div class="bp-title">Exécuter comme un atelier, pas comme un laboratoire.</div>
+        <p class="bp-muted">
+          Chaque client sert à standardiser une “recette” reproductible.
+          L’objectif: réduire le temps de setup, augmenter la valeur livrée, et rendre l’expansion naturelle.
+        </p>
+        <div class="bp-list">
+          <div class="bp-bullet"><span class="bp-dot blue"></span>
+            <div><strong>Audit (1h)</strong> : identifier 2–3 tâches répétitives à fort gain.</div>
+          </div>
+          <div class="bp-bullet"><span class="bp-dot cyan"></span>
+            <div><strong>Setup</strong> : connecter les outils, paramétrer les règles simples.</div>
+          </div>
+          <div class="bp-bullet"><span class="bp-dot amber"></span>
+            <div><strong>Run</strong> : monitoring + amélioration continue (mensuelle ou continue selon plan).</div>
+          </div>
+          <div class="bp-bullet"><span class="bp-dot red"></span>
+            <div><strong>Contrôle du churn</strong> : valeur visible, quick wins, expansion progressive.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="bp-card">
+        <div class="bp-mini">Standardisation</div>
+        <div class="bp-title">Transformer le service en produit.</div>
+        <p class="bp-muted">
+          Les premiers déploiements servent à construire un socle:
+          templates d’agents, checklists de sécurité, playbooks d’onboarding, FAQ et support.
+        </p>
+        <div class="bp-list">
+          <div class="bp-bullet"><span class="bp-dot blue"></span>
+            <div><strong>Templates</strong> : packs “cabinet comptable”, “cabinet conseil”, “PME services”.</div>
+          </div>
+          <div class="bp-bullet"><span class="bp-dot gray"></span>
+            <div><strong>Qualité</strong> : logs, monitoring, tests de non-régression sur agents clés.</div>
+          </div>
+          <div class="bp-bullet"><span class="bp-dot amber"></span>
+            <div><strong>Docs</strong> : guide “règles simples”, fiches d’agents, bonnes pratiques.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Jalons 12 mois -->
+    <section class="bp-card">
+      <div class="bp-mini">Jalons opérationnels</div>
+      <div class="bp-title">12 mois pour passer de “preuve” à “répétable”.</div>
+
+      <div class="tl" style="margin-top:12px">
+        <div class="tl-step">
+          <div><span class="tl-chip">0–3 mois</span></div>
+          <div>
+            <div class="tl-title">Pack d’agents “cœur” + 1ère boucle de delivery</div>
+            <div class="tl-desc">Créer les agents les plus demandés, sécuriser le run, et obtenir des retours concrets.</div>
+            <div class="tl-kpis">
+              <span class="kpi"><i class="b"></i> 3–5 cas d’usage “proof”</span>
+              <span class="kpi"><i class="a"></i> Temps de setup <strong>réduit</strong></span>
+              <span class="kpi"><i class="c"></i> Monitoring en place</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="tl-step">
+          <div><span class="tl-chip">3–6 mois</span></div>
+          <div>
+            <div class="tl-title">Standardiser (templates + playbooks) + premiers partenariats</div>
+            <div class="tl-desc">Rendre le déploiement plus rapide et plus “produit”. Démarrer des relais d’acquisition locaux.</div>
+            <div class="tl-kpis">
+              <span class="kpi"><i class="b"></i> Packs sectoriels</span>
+              <span class="kpi"><i class="a"></i> Onboarding “checklist”</span>
+              <span class="kpi"><i class="c"></i> Support structuré</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="tl-step">
+          <div><span class="tl-chip">6–12 mois</span></div>
+          <div>
+            <div class="tl-title">Industrialiser + piloter la rétention</div>
+            <div class="tl-desc">Développer l’expansion (agents supplémentaires) et un pilotage churn/usage rigoureux.</div>
+            <div class="tl-kpis">
+              <span class="kpi"><i class="b"></i> Expansion par agents</span>
+              <span class="kpi"><i class="r"></i> Churn suivi & réduit</span>
+              <span class="kpi"><i class="c"></i> Qualité & sécurité renforcées</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Partenaires -->
+    <section class="bp-grid two">
+      <div class="bp-card">
+        <div class="bp-mini">Partenaires & leviers</div>
+        <div class="bp-title">Accélérer sans gonfler l’équipe trop tôt.</div>
+        <p class="bp-muted">
+          Le bon modèle: quelques partenaires ciblés (réseau PME/cabinets, intégrateurs, éditeurs) plutôt qu’une armée commerciale.
+        </p>
+        <div class="bp-list">
+          <div class="bp-bullet"><span class="bp-dot amber"></span>
+            <div><strong>Cabinets & réseaux</strong> : accès aux besoins réels, cas d’usage répétables.</div>
+          </div>
+          <div class="bp-bullet"><span class="bp-dot cyan"></span>
+            <div><strong>Intégrateurs / freelances</strong> : renfort ponctuel, sans rigidifier la structure.</div>
+          </div>
+          <div class="bp-bullet"><span class="bp-dot blue"></span>
+            <div><strong>Éditeurs outils</strong> : intégrations plus fluides, co-marketing (quand pertinent).</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="bp-card light">
+        <div class="bp-mini">Ce qu’un investisseur doit retenir</div>
+        <div class="bp-title">Une exécution “simple”, mais pensée pour scaler.</div>
+        <div class="bp-list" style="margin-top:10px">
+          <div class="bp-bullet"><span class="bp-dot blue"></span>
+            <div><strong>Priorité</strong> : preuves terrain, vite.</div>
+          </div>
+          <div class="bp-bullet"><span class="bp-dot cyan"></span>
+            <div><strong>Méthode</strong> : standardiser le delivery jusqu’à industrialiser.</div>
+          </div>
+          <div class="bp-bullet"><span class="bp-dot amber"></span>
+            <div><strong>Equipe</strong> : minimaliste, orientée résultats (pas “théorie”).</div>
+          </div>
+          <div class="bp-bullet"><span class="bp-dot red"></span>
+            <div><strong>Risque maîtrisé</strong> : jalons clairs, recrutements déclenchés par la traction.</div>
+          </div>
+
+      </div>
+    </section>
+        </div>
+                <div class="section-cta-row" style="margin-top:28px;">
+          <a href="bp-traction.html" class="btn-primary">Chapitre suivant : Traction & Indicateurs</a>
+          <a href="bp-gotomarket.html" class="btn-ghost">Retour au Go-to-Market</a>
+        </div>
+  </main>
+</body>
+</html>

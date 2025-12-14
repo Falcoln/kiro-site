@@ -1,0 +1,48 @@
+<svg width="420" height="700" viewBox="0 0 420 700" xmlns="http://www.w3.org/2000/svg">
+
+  <!-- Ombre douce sous les pieds -->
+  <ellipse cx="210" cy="668" rx="115" ry="26" fill="black" opacity="0.22"></ellipse>
+
+  <!-- Silhouette neutre -->
+  <g fill="#F2F5FA">
+
+    <!-- Jambe gauche -->
+    <path d="M175 505 L205 505 L200 650 L180 650 Z"></path>
+    <!-- Jambe droite -->
+    <path d="M215 505 L245 505 L240 650 L220 650 Z"></path>
+
+    <!-- Buste (bleu tech) -->
+    <path d="M160 505 Q210 445 260 505 L260 580 Q210 615 160 580 Z" fill="#4C76FF"></path>
+
+    <!-- Tête -->
+    <ellipse cx="210" cy="430" rx="36" ry="42"></ellipse>
+
+    <!-- Bras gauche neutre -->
+    <path d="M158 520 C152 560 152 600 165 630 L178 625 C168 595 168 560 173 520 Z"></path>
+
+    <!-- Bras droit (main ouverte) -->
+    <path d="M265 520 C278 560 284 590 280 610 L264 607 C268 585 263 560 252 530 Z"></path>
+    <circle cx="287" cy="610" r="12"></circle>
+  </g>
+
+  <!-- ORBE KIRO -->
+  <g>
+    <!-- Halo -->
+    <defs>
+      <radialGradient id="orbGlow" cx="0.5" cy="0.5" r="0.6">
+        <stop offset="0%" stop-color="#00C5FF"></stop>
+        <stop offset="50%" stop-color="#00C5FF" stop-opacity="0.55"></stop>
+        <stop offset="100%" stop-color="#00C5FF" stop-opacity="0"></stop>
+      </radialGradient>
+    </defs>
+
+    <circle cx="320" cy="590" r="44" fill="url(#orbGlow)"></circle>
+
+    <!-- Orbe -->
+    <circle cx="320" cy="590" r="24" fill="#00C5FF"></circle>
+
+    <!-- Reflet -->
+    <circle cx="312" cy="582" r="9" fill="white" opacity="0.55"></circle>
+  </g>
+
+</svg>

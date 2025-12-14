@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <title>KIRO – Business Plan | Modèle économique</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="css/kiro.css" />
+
+  <style>
+    /* Local polish (safe, non-destructif) */
+    .bp-two { display:grid; grid-template-columns: 1.1fr .9fr; gap: 18px; align-items: stretch; }
+    .bp-three { display:grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .bp-four { display:grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+    .bp-stack { display:grid; gap: 14px; }
+
+    .bp-chiprow { display:flex; flex-wrap:wrap; gap:10px; margin-top: 10px; }
+    .bp-chip {
+      display:inline-flex; align-items:center; gap:8px;
+      padding: 8px 10px; border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.20);
+      background: rgba(15, 23, 42, 0.28);
+      font-size: 13px; opacity: 0.9;
+    }
+    .bp-dot { width: 10px; height: 10px; border-radius: 999px; display:inline-block; }
+    .bp-dot.blue { background: rgba(56,189,248,.95); box-shadow: 0 0 16px rgba(56,189,248,.30); }
+    .bp-dot.red { background: rgba(239,68,68,.95); box-shadow: 0 0 16px rgba(239,68,68,.25); }
+    .bp-dot.amber { background: rgba(251,191,36,.95); box-shadow: 0 0 16px rgba(251,191,36,.18); }
+    .bp-dot.gray { background: rgba(148,163,184,.90); }
+
+    .bp-metricline { display:flex; align-items:baseline; justify-content:space-between; gap: 14px; padding: 10px 0; border-bottom: 1px solid rgba(148,163,184,.14); }
+    .bp-metricline:last-child { border-bottom: none; }
+    .bp-metricline strong { font-weight: 700; }
+    .bp-muted { opacity: .78; }
+
+    .bp-mini { font-size: 12.5px; line-height: 1.55; opacity: .85; }
+    .bp-kpi { font-size: 44px; font-weight: 800; letter-spacing: -.04em; line-height: 1; }
+    .bp-kpi small { font-size: 14px; font-weight: 700; opacity: .75; margin-left: 6px; }
+
+    .bp-proof {
+      margin-top: 10px;
+      padding: 10px 12px;
+      border-radius: 14px;
+      border: 1px solid rgba(148, 163, 184, 0.22);
+      background: rgba(2, 6, 23, 0.30);
+      font-size: 13px;
+      line-height: 1.45;
+      opacity: 0.92;
+    }
+    .bp-proof code { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; font-size: 12.5px; }
+
+    .bp-tablewrap {
+      overflow-x:auto;
+      border-radius: 18px;
+      border: 1px solid rgba(148, 163, 184, 0.22);
+      background: rgba(15, 23, 42, 0.35);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
+    .bp-table { width:100%; border-collapse: separate; border-spacing: 0; min-width: 860px; }
+    .bp-table th {
+      text-align:left; font-size: 12px; letter-spacing: .12em; text-transform: uppercase; opacity: .85;
+      padding: 16px; border-bottom: 1px solid rgba(148, 163, 184, 0.22);
+      background: rgba(2, 6, 23, 0.55);
+      position: sticky; top:0; z-index:1;
+    }
+    .bp-table td { padding: 14px 16px; border-bottom: 1px solid rgba(148,163,184,.14); font-size: 14px; opacity: .92; vertical-align: top; }
+    .bp-table tr:hover td { background: rgba(2, 6, 23, 0.35); }
+    .bp-table td:nth-child(n+2), .bp-table th:nth-child(n+2) { text-align:center; }
+
+    .bp-tag {
+      display:inline-flex; align-items:center; gap:8px;
+      padding: 6px 10px; border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.20);
+      background: rgba(2,6,23,.25);
+      font-size: 12.5px;
+    }
+
+    .bp-halo {
+      position: relative;
+      border-radius: 24px;
+      border: 1px solid rgba(56,189,248,.30);
+      box-shadow:
+        0 0 0 1px rgba(56,189,248,.12) inset,
+        0 0 60px rgba(56,189,248,.10);
+      overflow: hidden;
+    }
+    .bp-halo::before{
+      content:"";
+      position:absolute; inset:-40%;
+      background: radial-gradient(circle at 50% 50%, rgba(56,189,248,.18), transparent 55%);
+      filter: blur(18px);
+      opacity: .9;
+      animation: bpHalo 6.5s ease-in-out infinite;
+      pointer-events:none;
+    }
+    @keyframes bpHalo { 0%,100% { transform: translateY(-8px) scale(1); } 50% { transform: translateY(10px) scale(1.05); } }
+
+    @media (max-width: 980px){
+      .bp-two { grid-template-columns: 1fr; }
+      .bp-three { grid-template-columns: 1fr; }
+      .bp-four { grid-template-columns: 1fr; }
+      .bp-kpi { font-size: 40px; }
+    }
+  </style>
+</head>
+
+<body data-theme="dark">
+<div class="page">
+
+  <!-- HEADER BP -->
+<header class="bp-header">
+  <div class="bp-header-inner">
+
+    <div class="bp-left">
+      <a href="index.html" title="Retour au site public">
+        <img src="assets/logo-kiro-white.png" class="logo-img logo-light" alt="Kiro" />
+        <img src="assets/logo-kiro-dark.png" class="logo-img logo-dark" alt="Kiro" />
+      </a>
+      <span class="bp-badge">Business Plan</span>
+    </div>
+
+    <nav class="bp-nav">
+      <a class="bp-link" href="bp-executive.html">Executive</a>
+      <a class="bp-link" href="bp-vision.html">Vision</a>
+      <a class="bp-link" href="bp-probleme.html">Problème</a>
+      <a class="bp-link" href="bp-solution.html">Solution</a>
+      <a class="bp-link" href="bp-valeur.html">Valeur</a>
+      <a class="bp-link" href="bp-produit.html">Produit</a>
+      <a class="bp-link" href="bp-marche.html">Marché</a>
+      <a class="bp-link" href="bp-concurrence.html">Concurrence</a>
+      <a class="bp-link active" href="bp-modele.html">Modèle</a>
+      <a class="bp-link" href="bp-gotomarket.html">Go-to-Market</a>
+      <a class="bp-link" href="bp-organisation.html">Organisation</a>
+      <a class="bp-link" href="bp-traction.html">Traction</a>
+      <a class="bp-link" href="bp-financials.html">Finances</a>
+      <a class="bp-link" href="bp-risks.html">Risques</a>
+      <a class="bp-link" href="bp-conclusion.html">Conclusion</a>
+    </nav>
+
+  </div>
+</header>
+
+
+  <main>
+
+    <!-- HERO -->
+    <section class="hero" style="padding:110px 0 70px;">
+      <div class="hero-inner">
+        <div class="section-kicker">Chapitre 8</div>
+        <h1 class="hero-title">Un modèle récurrent, expansif, mesurable.</h1>
+        <p class="hero-subtitle" style="max-width: 980px;">
+          KIRO monétise une valeur opérationnelle concrète : du temps récupéré, des erreurs évitées, un pilotage plus fiable.
+          Le modèle est conçu pour démarrer petit, prouver vite, puis s’étendre sans friction.
+        </p>
+
+        <div class="bp-chiprow">
+          <span class="bp-chip"><span class="bp-dot blue"></span> Revenus récurrents (SaaS)</span>
+          <span class="bp-chip"><span class="bp-dot amber"></span> Déploiement progressif (agents)</span>
+          <span class="bp-chip"><span class="bp-dot gray"></span> Coûts marginaux faibles</span>
+          <span class="bp-chip"><span class="bp-dot red"></span> Risque maîtrisé (phases)</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- 1) MODEL OVERVIEW -->
+    <section class="section">
+      <div class="section-inner bp-two">
+        <div class="card light-card">
+          <div class="section-kicker">Structure</div>
+          <h2 class="card-title">SaaS par abonnement + déploiement encadré.</h2>
+          <p class="card-text">
+            Le cœur du modèle est un abonnement (mensuel/annuel) qui couvre l’usage des micro-agents,
+            la supervision, et l’amélioration continue. Le déploiement initial est cadré pour être
+            rapide, réplicable, et sans dette technique côté client.
+          </p>
+
+          <div class="bp-proof">
+            <strong>Principe:</strong> démarrer par un périmètre, mesurer les gains, étendre par “paliers”.<br/>
+            <code>1 client = 1 socle + N micro-agents (expansion)</code>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="section-kicker">Pourquoi c’est robuste</div>
+
+          <div class="bp-stack">
+            <div class="bp-metricline">
+              <strong>Récurrence</strong>
+              <span class="bp-muted">MRR / ARR</span>
+            </div>
+            <div class="bp-metricline">
+              <strong>Expansion</strong>
+              <span class="bp-muted">+ agents / + services</span>
+            </div>
+            <div class="bp-metricline">
+              <strong>Mesurabilité</strong>
+              <span class="bp-muted">temps, erreurs, délais</span>
+            </div>
+            <div class="bp-metricline">
+              <strong>Scalabilité</strong>
+              <span class="bp-muted">réplicable par modules</span>
+            </div>
+          </div>
+
+          <p class="bp-mini" style="margin-top: 12px;">
+            Le modèle évite le “sur-mesure caché”.
+            KIRO garde la personnalisation là où elle est rentable (règles, paramètres, intégrations standardisées),
+            sans transformer chaque client en projet unique.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2) REVENUE STREAMS -->
+<section class="section section-alt">
+  <div class="section-inner">
+    <h2 class="section-title">Sources de revenus (structurées et maîtrisées).</h2>
+
+    <div class="bp-three">
+      
+      <!-- 1. Abonnement -->
+      <div class="card">
+        <div class="section-kicker">Revenu principal</div>
+        <h3 class="card-title">Abonnement SaaS</h3>
+        <p class="card-text">
+          Accès à la plateforme KIRO, aux micro-agents activés,
+          à la supervision et à l’amélioration continue.
+        </p>
+        <div class="bp-proof">
+          <strong>Objectif :</strong> MRR, ARR, Net Revenue Retention (NRR).
+        </div>
+          <div class="bp-proof" style="margin-top:12px;">
+          <strong>Ordre de grandeur :</strong>
+          Abonnement facturé à partir de <strong>600 €</strong> selon le plan vendu, sans engagement.
+        </div>
+      </div>
+
+      <!-- 2. Setup -->
+      <div class="card glow-card">
+        <div class="section-kicker">Revenu d’activation</div>
+        <h3 class="card-title">Setup & mise en production</h3>
+        <p class="card-text">
+          Forfait de démarrage couvrant l’audit opérationnel,
+          le paramétrage initial et la mise en production du premier périmètre.
+        </p>
+        <div class="bp-proof">
+          <strong>Rôle :</strong> sécuriser le time-to-value,
+          réduire le churn précoce, financer l’onboarding.
+        </div>
+        <div class="bp-proof" style="margin-top:12px;">
+          <strong>Ordre de grandeur :</strong>
+          setup facturé entre <strong>1 500 € et 5 000 €</strong> selon le périmètre,
+          sans dépendance à la durée.
+        </div>
+      </div>
+
+
+      <!-- 3. Premium -->
+      <div class="card">
+        <div class="section-kicker">Revenus complémentaires</div>
+        <h3 class="card-title">Services premium</h3>
+        <p class="card-text">
+          Intégrations spécifiques, SLA renforcé, ateliers direction,
+          conformité et accompagnement avancé.
+        </p>
+        <div class="bp-proof">
+          <strong>Règle :</strong> optionnel, non bloquant, ciblé.
+        </div>
+          <div class="bp-proof" style="margin-top:12px;">
+          <strong>Ordre de grandeur :</strong>
+          Facturé entre <strong>800 € et 1 500 €</strong> par jour homme vendu.
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+    <!-- 3) PRICING LOGIC -->
+    <section class="section">
+      <div class="section-inner">
+        <h2 class="section-title">Logique de pricing</h2>
+
+        <div class="bp-two">
+          <div class="card light-card">
+            <h3 class="card-title">Ce que le client “achète” réellement</h3>
+            <div class="bp-stack">
+              <div class="bp-metricline">
+                <strong>Un périmètre automatisé</strong>
+                <span class="bp-muted">ex: relances, facturation, tri, suivi</span>
+              </div>
+              <div class="bp-metricline">
+                <strong>Une supervision</strong>
+                <span class="bp-muted">contrôle, alertes, auditabilité</span>
+              </div>
+              <div class="bp-metricline">
+                <strong>Une amélioration continue</strong>
+                <span class="bp-muted">optimisation, stabilité</span>
+              </div>
+            </div>
+
+            <div class="bp-proof">
+              <strong>Positionnement:</strong> entre “outils à configurer soi-même” et “sur-mesure coûteux”.<br/>
+              <code>KIRO = exécution + pilotage + simplicité</code>
+            </div>
+          </div>
+
+          <div class="card bp-halo">
+            <div class="section-kicker">Cœur de cible</div>
+            <h3 class="card-title">Plan Pro (référence BP)</h3>
+
+            <div class="bp-metricline">
+              <strong>Ticket mensuel</strong>
+              <span>1 500 à 2 500 € / mois</span>
+            </div>
+            <div class="bp-metricline">
+              <strong>Couverture</strong>
+              <span>2 à 3 périmètres</span>
+            </div>
+            <div class="bp-metricline">
+              <strong>Valeur</strong>
+              <span>gains + fiabilité + cadence</span>
+            </div>
+
+            <p class="bp-mini" style="margin-top: 12px;">
+              Le plan Pro est pensé pour les PME/cabinets “suffisamment structurés” :
+              assez de volume pour que l’automatisation soit rentable, pas assez de ressources pour industrialiser en interne.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4) UNIT ECONOMICS (HYPOTHESES) -->
+    <section class="section section-alt">
+      <div class="section-inner">
+        <h2 class="section-title">Unit economics</h2>
+        <p class="section-subtitle">
+          Ces chiffres sont des <strong>hypothèses de travail</strong> à affiner avec la traction.
+          L’important : la mécanique (répétable + marge + expansion).
+        </p>
+
+        <div class="bp-three">
+          <div class="card light-card">
+            <div class="section-kicker">ARPU</div>
+            <div class="bp-kpi">1 800<small>€ / mois</small></div>
+            <p class="bp-mini" style="margin-top: 10px;">
+              Hypothèse BP : ARPU moyen tiré par le plan Pro (cœur de cible sur 3 ans).
+            </p>
+            <div class="bp-proof">
+              <strong>À calibrer:</strong> panier par secteur, taille (10–100), intensité opérationnelle.
+            </div>
+          </div>
+
+          <div class="card light-card">
+            <div class="section-kicker">Marge brute</div>
+            <div class="bp-kpi">70–80<small>%</small></div>
+            <p class="bp-mini" style="margin-top: 10px;">
+              Objectif une fois la plateforme stabilisée et les agents clés industrialisés.
+            </p>
+            <div class="bp-proof">
+              <strong>Drivers:</strong> infra + support + ops + amortissement dev agents.
+            </div>
+          </div>
+
+          <div class="card light-card">
+            <div class="section-kicker">NRR (expansion)</div>
+            <div class="bp-kpi">110–130<small>%</small></div>
+            <p class="bp-mini" style="margin-top: 10px;">
+              Expansion attendue via ajout d’agents / nouveaux périmètres.
+            </p>
+            <div class="bp-proof">
+              <strong>Condition:</strong> time-to-value rapide + catalogue d’agents “prioritaires”.
+            </div>
+          </div>
+        </div>
+
+        <div class="card" style="margin-top: 16px;">
+          <div class="section-kicker">Calcul de référence (exemple)</div>
+          <p class="card-text">
+            Exemple d’économie client : une PME de 30 personnes.
+            Si KIRO permet de récupérer <strong>10%</strong> de capacité sur du répétitif,
+            la valeur annuelle dépasse rapidement le coût de l’abonnement.
+          </p>
+          <div class="bp-proof">
+            <strong>Exemple de calcul:</strong><br/>
+            <code>30 × 45 000€ × 10% = 135 000€ / an</code> de capacité récupérée (hypothèse coût chargé).<br/>
+            <strong>Note:</strong> on vend un résultat (temps, erreurs, délais), pas une “IA”.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5) TABLE: PACKAGING -->
+    <section class="section">
+      <div class="section-inner">
+        <h2 class="section-title">Packaging (lisible, sans marketing)</h2>
+
+        <div class="bp-tablewrap">
+          <table class="bp-table">
+            <thead>
+              <tr>
+                <th>Plan</th>
+                <th>Pour qui</th>
+                <th>Périmètre</th>
+                <th>Supervision</th>
+                <th>Onboarding</th>
+                <th>Prix indicatif</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><span class="bp-tag"><span class="bp-dot gray"></span> Operate</span></td>
+                <td>PME / cabinet qui démarre</td>
+                <td>1 périmètre</td>
+                <td>standard</td>
+                <td>cadré</td>
+                <td>~ 600 € / mois</td>
+              </tr>
+              <tr>
+                <td><span class="bp-tag"><span class="bp-dot blue"></span> Pro</span></td>
+                <td>Cœur de cible (10–100)</td>
+                <td>2–3 périmètres</td>
+                <td>renforcée</td>
+                <td>accéléré</td>
+                <td>1 500–2 500 € / mois</td>
+              </tr>
+              <tr>
+                <td><span class="bp-tag"><span class="bp-dot red"></span> Enterprise</span></td>
+                <td>multi-services / exigences</td>
+                <td>large + spécifique</td>
+                <td>SLA + gouvernance</td>
+                <td>sur-mesure</td>
+                <td>Sur devis</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <p class="bp-mini" style="margin-top: 12px;">
+          Le pricing est volontairement structuré autour du <strong>périmètre automatisé</strong> et du
+          <strong>niveau de supervision</strong> (et non autour de “l’IA”).
+        </p>
+      </div>
+    </section>
+
+    <!-- 6) EXPANSION MECHANICS -->
+    <section class="section section-alt">
+      <div class="section-inner bp-two">
+        <div class="card">
+          <h2 class="card-title">Expansion naturelle (sans revente agressive)</h2>
+          <p class="card-text">
+            Une fois un premier périmètre stabilisé, l’expansion se fait par ajout d’agents,
+            extension à d’autres services, et amélioration continue.
+          </p>
+          <ul class="aa-list" style="margin-top: 12px;">
+            <li>Ajout d’un 2e agent sur un nouveau flux (ex: relances → facturation)</li>
+            <li>Extension à une autre équipe (ex: admin → commerce)</li>
+            <li>Standardisation + connecteurs (gain de marge + rapidité)</li>
+            <li>Renforcement de la supervision (SLA, reporting, gouvernance)</li>
+          </ul>
+        </div>
+
+        <div class="card light-card">
+          <div class="section-kicker">KPIs à suivre</div>
+          <div class="bp-stack">
+            <div class="bp-metricline"><strong>Time-to-Value</strong><span class="bp-muted">jours → semaines</span></div>
+            <div class="bp-metricline"><strong>Activation</strong><span class="bp-muted">1er agent en prod</span></div>
+            <div class="bp-metricline"><strong>NRR</strong><span class="bp-muted">expansion nette</span></div>
+            <div class="bp-metricline"><strong>Churn</strong><span class="bp-muted">attrition annuelle</span></div>
+            <div class="bp-metricline"><strong>Support load</strong><span class="bp-muted">coût par client</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 7) RISKS & GUARDRAILS -->
+    <section class="section">
+      <div class="section-inner">
+        <h2 class="section-title">Risques (et garde-fous du modèle)</h2>
+
+        <div class="bp-three">
+          <div class="card">
+            <div class="section-kicker">Risque</div>
+            <h3 class="card-title">Trop de sur-mesure</h3>
+            <p class="card-text">
+              Danger classique : chaque client devient un projet unique, la marge s’effondre.
+            </p>
+            <div class="bp-proof">
+              <strong>Garde-fou:</strong> catalogue d’agents + règles paramétrables + connecteurs standardisés.
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="section-kicker">Risque</div>
+            <h3 class="card-title">Time-to-value trop long</h3>
+            <p class="card-text">
+              Si la valeur est trop lente à apparaître, l’adoption décroche.
+            </p>
+            <div class="bp-proof">
+              <strong>Garde-fou:</strong> onboarding cadré + “1er périmètre” toujours prioritaire.
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="section-kicker">Risque</div>
+            <h3 class="card-title">Confiance / sécurité</h3>
+            <p class="card-text">
+              Les PME & cabinets veulent du concret, mais aussi du sûr.
+            </p>
+            <div class="bp-proof">
+              <strong>Garde-fou:</strong> conformité, RGPD, traçabilité, cloisonnement, politique d’accès.
+            </div>
+          </div>
+        </div>
+
+        <div class="section-cta-row" style="margin-top:28px;">
+          <a href="bp-gotomarket.html" class="btn-primary">Chapitre suivant : Go-to-market & parcours client</a>
+          <a href="bp-concurrence.html" class="btn-ghost">Retour à la concurrence</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- 8) SOURCES (optional, light) -->
+    <section class="section section-alt">
+      <div class="section-inner">
+        <div class="card">
+          <div class="section-kicker">Notes & sources (léger)</div>
+          <p class="bp-mini">
+            Les montants et KPI affichés dans ce chapitre sont des <strong>hypothèses BP</strong>.
+            Les sources servent à cadrer les catégories (SaaS, RPA, automation), pas à “forcer” un chiffre.
+          </p>
+          <ul class="sources-list" style="margin-top: 10px;">
+            <li><strong>INSEE</strong> — Répertoire SIRENE (cadre marché France) : <a href="https://www.insee.fr/fr/statistiques/2389743" target="_blank" rel="noopener">insee.fr</a></li>
+            <li><strong>Gartner</strong> — RPA (cadre catégorie) : <a href="https://www.gartner.com/en/documents/4002927" target="_blank" rel="noopener">gartner.com</a></li>
+            <li><strong>Docs éditeurs</strong> — Zapier / Make / Power Automate (catégories & usages) : <a href="https://zapier.com" target="_blank" rel="noopener">zapier.com</a>, <a href="https://www.make.com" target="_blank" rel="noopener">make.com</a>, <a href="https://learn.microsoft.com/power-automate" target="_blank" rel="noopener">learn.microsoft.com</a></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>© KIRO – Business Plan (pages internes)</footer>
+
+</div>
+</body>
+</html>

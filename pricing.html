@@ -1,0 +1,804 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <title>KIRO – Tarifs & accompagnement</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="css/kiro.css" />
+
+  <style>
+    /* ---------- CARTES TARIFS ---------- */
+
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 32px;
+      margin-top: 40px;
+      align-items: stretch;
+    }
+
+    @media (max-width: 900px) {
+      .pricing-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .pricing-card {
+      background: #f9fafb;
+      border-radius: 28px;
+      padding: 32px 28px 30px;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      color: #0f172a;
+      position: relative;
+      box-shadow: 0 2px 6px rgba(15, 23, 42, 0.06);
+      overflow: hidden;
+    }
+
+    .pricing-card-body {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .pricing-card-title {
+      font-size: 20px;
+      margin: 0 0 10px;
+    }
+
+    .pricing-card-intro {
+      margin: 0 0 18px;
+      font-size: 15px;
+      line-height: 1.6;
+      opacity: 0.85;
+    }
+
+    /* Liste avec icônes fines */
+    .pricing-feature-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      font-size: 14px;
+      line-height: 1.6;
+      flex: 1;
+    }
+
+    .pricing-feature {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+    }
+
+    .feature-icon {
+      width: 18px;
+      height: 18px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.7);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      background: #eef2ff;
+      color: #4338ca;
+      flex-shrink: 0;
+    }
+
+    .feature-text {
+      flex: 1;
+    }
+
+    /* Footer : prix aligné en bas */
+    .pricing-card-footer {
+      margin-top: auto;
+      padding-top: 20px;
+      font-size: 15px;
+    }
+
+    .pricing-price-main {
+      font-weight: 600;
+      font-size: 17px;
+      margin: 0 0 4px;
+    }
+
+    .pricing-price-note {
+      margin: 0;
+      font-size: 13px;
+      opacity: 0.75;
+    }
+
+    /* ---------- PLAN PRO : HALO ANIMÉ ---------- */
+
+    .pricing-card--pro {
+      background: #ffffff;
+      border: 1px solid rgba(59, 130, 246, 0.45);
+      box-shadow:
+        0 0 0 1px rgba(59, 130, 246, 0.25),
+        0 0 50px rgba(56, 189, 248, 0.4),
+        0 14px 30px rgba(15, 23, 42, 0.35);
+      transform: translateY(-2px);
+      z-index: 0;
+    }
+
+    .pricing-card--pro::before {
+      content: "";
+      position: absolute;
+      inset: -26px;
+      border-radius: 40px;
+      background: radial-gradient(circle at top, rgba(56, 189, 248, 0.5), transparent 65%);
+      filter: blur(10px);
+      opacity: 0.85;
+      z-index: -1;
+      animation: proHalo 4.5s ease-in-out infinite;
+    }
+
+    .pricing-card-badge {
+      position: absolute;
+      top: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(37, 99, 235, 0.15);
+      color: #1d4ed8;
+      padding: 3px 12px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    @keyframes proHalo {
+      0%   { opacity: 0.6; transform: scale(0.98); }
+      50%  { opacity: 1;   transform: scale(1.02); }
+      100% { opacity: 0.7; transform: scale(0.98); }
+    }
+
+    @media (max-width: 900px) {
+      .pricing-card--pro {
+        transform: translateY(0);
+      }
+    }
+
+    /* ---------- Résumé plans ---------- */
+
+    .pricing-summary-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 24px;
+      margin-top: 24px;
+    }
+
+    @media (max-width: 900px) {
+      .pricing-summary-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* ---------- Comparatif tableau ---------- */
+
+    .comparison-wrapper {
+      margin-top: 40px;
+      border-radius: 24px;
+      border: 1px solid rgba(148, 163, 184, 0.45);
+      background: radial-gradient(circle at top, rgba(15, 23, 42, 0.96), rgba(15, 23, 42, 0.98));
+      padding: 24px 22px 20px;
+    }
+
+    .comparison-title {
+      font-size: 17px;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .comparison-caption {
+      font-size: 13px;
+      opacity: 0.78;
+      margin-bottom: 16px;
+    }
+
+    .comparison-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+    }
+
+    .comparison-table thead th {
+      text-align: left;
+      padding: 10px 10px;
+      border-bottom: 1px solid rgba(148, 163, 184, 0.4);
+      font-weight: 500;
+    }
+
+    .comparison-table tbody td {
+      padding: 8px 10px;
+      border-bottom: 1px solid rgba(15, 23, 42, 0.9);
+      vertical-align: top;
+    }
+
+    .comparison-feature-label {
+      font-weight: 500;
+    }
+
+    .comparison-subtext {
+      font-size: 12px;
+      opacity: 0.7;
+      margin-top: 2px;
+    }
+
+    .comparison-check {
+      text-align: center;
+    }
+
+    .comparison-footnote {
+      font-size: 12px;
+      opacity: 0.7;
+      padding-top: 12px;
+      text-align: center;
+    }
+
+    /* ---------- Contact / formulaire ---------- */
+
+    .contact-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+      gap: 32px;
+      align-items: start;
+    }
+
+    @media (max-width: 900px) {
+      .contact-layout {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .contact-card {
+      background: rgba(15, 23, 42, 0.9);
+      border-radius: 20px;
+      padding: 22px 22px 20px;
+      border: 1px solid rgba(148, 163, 184, 0.4);
+    }
+
+    .contact-title {
+      font-size: 18px;
+      margin-bottom: 8px;
+    }
+
+    .contact-subtitle {
+      font-size: 14px;
+      opacity: 0.82;
+      margin-bottom: 16px;
+    }
+
+    .contact-form-group {
+      margin-bottom: 12px;
+    }
+
+    .contact-label {
+      display: block;
+      font-size: 13px;
+      margin-bottom: 4px;
+      opacity: 0.85;
+    }
+
+    .contact-input,
+    .contact-textarea,
+    .contact-input select {
+      width: 100%;
+      border-radius: 10px;
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      background: rgba(15, 23, 42, 0.9);
+      color: #e5e7eb;
+      padding: 8px 10px;
+      font-size: 14px;
+    }
+
+    .contact-textarea {
+      resize: vertical;
+      min-height: 100px;
+    }
+
+    .contact-form-row {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    @media (max-width: 600px) {
+      .contact-form-row {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .contact-footnote {
+      font-size: 12px;
+      opacity: 0.7;
+      margin-top: 8px;
+    }
+
+    .contact-hint {
+      font-size: 14px;
+      margin-top: 12px;
+      opacity: 0.85;
+    }
+
+    .contact-hint a {
+      color: var(--kiro-accent, #38bdf8);
+      text-decoration: none;
+    }
+
+    .contact-hint a:hover {
+      text-decoration: underline;
+    }
+
+    .contact-list {
+      margin-top: 16px;
+      padding-left: 18px;
+      font-size: 14px;
+      opacity: 0.9;
+    }
+  </style>
+</head>
+
+<body data-theme="dark">
+<div class="page">
+
+  <!-- HEADER -->
+  <header>
+    <div class="nav-left">
+      <a href="index.html">
+        <img src="assets/logo-kiro-white.png" class="logo-img logo-light" />
+        <img src="assets/logo-kiro-dark.png" class="logo-img logo-dark" />
+      </a>
+    </div>
+
+    <nav>
+      <a href="product.html" class="nav-link">Produit</a>
+      <a href="agents.html" class="nav-link">Agents</a>
+      <a href="pricing.html" class="nav-link">Tarifs</a>
+      <a href="about.html" class="nav-link">À propos</a>
+      <a href="security.html" class="nav-link">Sécurité & données</a>
+
+      <!-- CTA principal -->
+      <a href="#contact" class="nav-cta-primary">Audit gratuit</a>
+
+      <!-- Espace client -->
+      <a href="login.html" class="nav-cta">Espace client</a>
+    </nav>
+  </header>
+
+  <main>
+
+    <!-- HERO -->
+    <section class="hero">
+      <div class="hero-inner">
+        <div class="hero-glow"></div>
+
+        <h1 class="hero-title">Choisissez le niveau d’automatisation qui vous convient.</h1>
+        <p class="hero-subtitle">
+          Du premier département automatisé jusqu’à une automatisation large,
+          Kiro s’adapte à votre taille et à votre rythme.
+        </p>
+
+        <div class="hero-ctas">
+          <a href="product.html" class="btn-ghost">Voir comment on travaille</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- AUDIT GRATUIT -->
+    <section class="section section-alt">
+      <div class="section-inner">
+        <h2 class="section-title">Un audit gratuit pour commencer, sans engagement.</h2>
+      
+
+        <p class="section-subtitle">
+          30 à 45 minutes pour faire le tour de vos tâches répétitives, estimer les gains possibles
+          et voir si Kiro est pertinent pour vous.
+        </p>
+
+        <div class="section-cta-row">
+          <a href="#contact" class="btn-primary">Planifier un audit</a>
+        </div>
+        <p class="audit-text" style="opacity:.85; margin-top:10px;">
+  Vous ne choisissez pas un plan tout de suite : l’audit sert à estimer le périmètre,
+  puis on vous recommande le bon niveau (Operate, Pro ou Enterprise).
+</p>
+      </div>
+    </section>
+
+    <!-- PLANS -->
+    <section class="section">
+      <div class="section-inner">
+        <h2 class="section-title">Trois niveaux, en fonction de votre ambition.</h2>
+
+        <div class="pricing-grid">
+
+          <!-- Operate -->
+          <article class="pricing-card">
+            <div class="pricing-card-body">
+              <h3 class="pricing-card-title">Operate</h3>
+              <p class="pricing-card-intro">
+                Un premier périmètre automatisé (administratif, facturation, relances…)
+                pour tester concrètement l’apport de Kiro dans votre organisation.
+              </p>
+
+              <ul class="pricing-feature-list">
+                <li class="pricing-feature">
+                  <span class="feature-icon">✓</span>
+                  <span class="feature-text">1 service ou périmètre clé ciblé</span>
+                </li>
+                <li class="pricing-feature">
+                  <span class="feature-icon">✓</span>
+                  <span class="feature-text">Intégration à vos outils existants</span>
+                </li>
+                <li class="pricing-feature">
+                  <span class="feature-icon">✓</span>
+                  <span class="feature-text">Optimisations régulières des scénarios principaux</span>
+                </li>
+                <li class="pricing-feature">
+                  <span class="feature-icon">✓</span>
+                  <span class="feature-text">Support adapté à votre taille</span>
+                </li>
+              </ul>
+            </div>
+
+            <div class="pricing-card-footer">
+              <p class="pricing-price-main">À partir de 600 € / mois</p>
+              <p class="pricing-price-note">Idéal pour démarrer et valider le modèle.</p>
+            </div>
+          </article>
+
+          <!-- Pro -->
+          <article class="pricing-card pricing-card--pro">
+            <div class="pricing-card-badge">LE PLUS CHOISI</div>
+
+            <div class="pricing-card-body" style="margin-top:12px;">
+              <h3 class="pricing-card-title">Pro</h3>
+              <p class="pricing-card-intro">
+                Plusieurs départements automatisés, avec un suivi plus fin et des intégrations avancées.
+                Idéal pour les PME et cabinets en croissance.
+              </p>
+
+              <ul class="pricing-feature-list">
+                <li class="pricing-feature">
+                  <span class="feature-icon">✓</span>
+                  <span class="feature-text">2 à 3 départements automatisés</span>
+                </li>
+                <li class="pricing-feature">
+                  <span class="feature-icon">✓</span>
+                  <span class="feature-text">Intégrations avancées (API, ERP, CRM)</span>
+                </li>
+                <li class="pricing-feature">
+                  <span class="feature-icon">✓</span>
+                  <span class="feature-text">Optimisation mensuelle</span>
+                </li>
+                <li class="pricing-feature">
+                  <span class="feature-icon">✓</span>
+                  <span class="feature-text">Priorisation du support</span>
+                </li>
+              </ul>
+            </div>
+
+            <div class="pricing-card-footer">
+              <p class="pricing-price-main">À partir de 1500 € / mois</p>
+              <p class="pricing-price-note">L’équilibre entre couverture et budget.</p>
+            </div>
+          </article>
+
+          <!-- Enterprise -->
+          <article class="pricing-card">
+            <div class="pricing-card-body">
+              <h3 class="pricing-card-title">Enterprise</h3>
+              <p class="pricing-card-intro">
+                L’automatisation devient un levier stratégique, avec une couverture large
+                et une supervision renforcée.
+              </p>
+
+              <ul class="pricing-feature-list">
+                <li class="pricing-feature">
+                  <span class="feature-icon">✓</span>
+                  <span class="feature-text">Automatisation profonde sur plusieurs services</span>
+                </li>
+                <li class="pricing-feature">
+                  <span class="feature-icon">✓</span>
+                  <span class="feature-text">Intégrations complexes et internes</span>
+                </li>
+                <li class="pricing-feature">
+                  <span class="feature-icon">✓</span>
+                  <span class="feature-text">Supervision continue</span>
+                </li>
+                <li class="pricing-feature">
+                  <span class="feature-icon">✓</span>
+                  <span class="feature-text">Accompagnement direction / comité de pilotage</span>
+                </li>
+              </ul>
+            </div>
+
+            <div class="pricing-card-footer">
+              <p class="pricing-price-main">À partir de 3000 € / mois</p>
+              <p class="pricing-price-note">Pour les organisations où l’automatisation devient stratégique.</p>
+            </div>
+          </article>
+
+        </div>
+
+        <!-- Résumé -->
+        <section class="section section-alt" style="margin-top:48px;">
+          <div class="section-inner" style="padding-top:0;">
+            <h2 class="section-title">En résumé, quel plan choisir&nbsp;?</h2>
+
+            <div class="pricing-summary-grid">
+              <div class="card light-card">
+                <h3 class="card-title">Operate</h3>
+                <p class="card-text">
+                  Pour <strong>tester l’automatisation</strong> sur un premier périmètre
+                  et gagner du temps rapidement, sans tout remettre en cause.
+                </p>
+              </div>
+
+              <div class="card light-card">
+                <h3 class="card-title">Pro</h3>
+                <p class="card-text">
+                  Pour <strong>structurer l’automatisation</strong> de plusieurs services
+                  et en faire un levier fort de productivité.
+                </p>
+              </div>
+
+              <div class="card light-card">
+                <h3 class="card-title">Enterprise</h3>
+                <p class="card-text">
+                  Pour <strong>industrialiser l’automatisation</strong> à l’échelle de l’entreprise
+                  et piloter le sujet au niveau direction.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Comparatif -->
+        <div class="comparison-wrapper">
+          <div class="comparison-title">Comparatif des plans</div>
+          <div class="comparison-caption">
+            Une vue détaillée des différences clés entre Operate, Pro et Enterprise.
+          </div>
+
+          <table class="comparison-table">
+            <thead>
+              <tr>
+                <th></th>
+                <th>Operate</th>
+                <th>Pro</th>
+                <th>Enterprise</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  <div class="comparison-feature-label">Périmètre d’automatisation</div>
+                  <div class="comparison-subtext">Départements couverts</div>
+                </td>
+                <td>1 département clé</td>
+                <td>2 à 3 départements</td>
+                <td>Plusieurs services, jusqu’à 60 % des tâches récurrentes</td>
+              </tr>
+              <tr>
+                <td>
+                  <div class="comparison-feature-label">Optimisation des flux</div>
+                  <div class="comparison-subtext">Fréquence des améliorations</div>
+                </td>
+                <td>Trimestrielle</td>
+                <td>Mensuelle</td>
+                <td>Continue & proactive</td>
+              </tr>
+              <tr>
+                <td><div class="comparison-feature-label">Supervision & monitoring</div></td>
+                <td class="comparison-check">✔</td>
+                <td class="comparison-check">✔</td>
+                <td class="comparison-check">✔</td>
+              </tr>
+              <tr>
+                <td>
+                  <div class="comparison-feature-label">Intégration aux outils</div>
+                  <div class="comparison-subtext">Emails, drive, CRM/ERP, outils métiers</div>
+                </td>
+                <td>Outils standards</td>
+                <td>Intégrations avancées</td>
+                <td>Intégrations complexes & internes</td>
+              </tr>
+              <tr>
+                <td><div class="comparison-feature-label">Support & SLA</div></td>
+                <td>Adapté à la taille · SLA 48 h</td>
+                <td>Prioritaire · SLA 24 h</td>
+                <td>Sur mesure · SLA 4 h / jour même</td>
+              </tr>
+              <tr>
+                <td>
+                  <div class="comparison-feature-label">Pilotage avec la direction</div>
+                  <div class="comparison-subtext">Comité & gouvernance</div>
+                </td>
+                <td>Rapports périodiques</td>
+                <td>Synthèse mensuelle</td>
+                <td style="color: var(--aqua);">Comité mensuel dédié</td>
+              </tr>
+              <tr>
+                <td><div class="comparison-feature-label">Positionnement recommandé</div></td>
+                <td>Premier périmètre à automatiser</td>
+                <td>Équilibre idéal coût / couverture</td>
+                <td>Automatisation comme levier stratégique</td>
+              </tr>
+            </tbody>
+            <tfoot>
+              <tr>
+                <td colspan="4" class="comparison-footnote">
+                  Tarifs indicatifs, ajustés sur devis en fonction de la taille de votre entreprise
+                  et de la complexité des processus automatisés.
+                </td>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+
+      </div>
+    </section>
+
+    <div class="section-inner" style="margin-bottom:22px;">
+  <h2 class="section-title" style="font-size:28px; margin-bottom:12px;">Questions fréquentes.</h2>
+
+  <div class="faq">
+    <details class="faq-item">
+      <summary>Dois-je changer mes outils ?</summary>
+      <div class="faq-body">Non. Kiro s’intègre à ce que vous utilisez déjà (mails, drive, outils métier…).</div>
+    </details>
+
+    <details class="faq-item">
+      <summary>Quand voit-on les premiers résultats ?</summary>
+      <div class="faq-body">Souvent en quelques semaines, après le diagnostic et une première mise en place.</div>
+    </details>
+
+    <details class="faq-item">
+      <summary>Qui garde la main ?</summary>
+      <div class="faq-body">Vous. Les automatisations peuvent être supervisées et validées par vos équipes.</div>
+    </details>
+
+    <details class="faq-item">
+      <summary>Et la sécurité / le RGPD ?</summary>
+      <div class="faq-body">
+        On fait simple et clair. Voir notre page
+        <a href="security.html" style="color: var(--kiro-accent); text-decoration:none;">Sécurité & données</a>.
+      </div>
+    </details>
+
+    <details class="faq-item">
+      <summary>Si on veut arrêter ?</summary>
+      <div class="faq-body">C’est prévu contractuellement. On privilégie des engagements clairs et sans zone grise.</div>
+    </details>
+  </div>
+</div>
+
+    <!-- CONTACT + FORMULAIRE -->
+    <section class="section" id="contact">
+      <div class="section-inner contact-layout">
+        
+        <div class="contact-copy">
+          <h2 class="section-title" style="text-align:left;">Discutons de votre cas.</h2>
+          <p class="section-subtitle max-680" style="text-align:left;">
+            Dites-nous en quelques lignes comment vous travaillez aujourd’hui
+            et ce qui vous fait perdre du temps. Nous reviendrons vers vous
+            avec une proposition d’audit gratuit.
+          </p>
+
+          <p class="contact-hint">
+            Vous pouvez aussi écrire directement à<br />
+            <a href="mailto:contact@kiro.app">contact@kiro.app</a>
+          </p>
+
+          <ul class="contact-list">
+            <li>Votre activité et votre rôle</li>
+            <li>Les équipes concernées (admin, finance, relation client…)</li>
+            <li>Les outils que vous utilisez aujourd’hui</li>
+            <li>Les tâches qui vous semblent les plus répétitives</li>
+          </ul>
+        </div>
+
+        <div class="contact-card">
+          <h3 class="contact-title">Envoyer une demande d’audit</h3>
+          <p class="contact-subtitle">
+            Remplissez ce formulaire, nous vous répondons sous 24 heures.
+          </p>
+
+          <form id="contactForm" class="contact-form">
+            <div class="contact-form-group">
+              <label class="contact-label" for="name">Nom / Prénom</label>
+              <input id="name" name="name" class="contact-input" type="text" required />
+            </div>
+
+            <div class="contact-form-group">
+              <label class="contact-label" for="company">Entreprise</label>
+              <input id="company" name="company" class="contact-input" type="text" />
+            </div>
+
+            <div class="contact-form-row">
+              <div class="contact-form-group">
+                <label class="contact-label" for="size">Taille</label>
+                <select id="size" name="size" class="contact-input">
+                  <option value="">Sélectionner</option>
+                  <option value="moins de 20">Moins de 20</option>
+                  <option value="20 à 50">20 à 50</option>
+                  <option value="50 à 100">50 à 100</option>
+                  <option value="plus de 100">Plus de 100</option>
+                </select>
+              </div>
+
+              <div class="contact-form-group">
+                <label class="contact-label" for="email">Email</label>
+                <input id="email" name="email" class="contact-input" type="email" required />
+              </div>
+            </div>
+
+            <div class="contact-form-group">
+              <label class="contact-label" for="context">
+                Décrivez votre contexte et vos tâches répétitives
+              </label>
+              <textarea id="context" name="context" class="contact-textarea" rows="5" required></textarea>
+            </div>
+
+            <button type="submit" class="btn-primary" style="width:100%; margin-top:8px;">
+              Envoyer ma demande d’audit
+            </button>
+
+            <p class="contact-footnote">
+              En cliquant sur “Envoyer”, votre client mail s’ouvrira avec un message pré-rempli
+              récapitulant ces informations.
+            </p>
+          </form>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+<footer>
+  © KIRO – Votre intelligence étendue.
+  &nbsp;·&nbsp;
+  <a href="security.html">Sécurité, données & CGV</a>
+</footer>
+
+
+</div>
+
+<script>
+  const contactForm = document.getElementById("contactForm");
+  if (contactForm) {
+    contactForm.addEventListener("submit", function (e) {
+      e.preventDefault();
+
+      const data = new FormData(contactForm);
+      const name = data.get("name") || "";
+      const company = data.get("company") || "";
+      const size = data.get("size") || "";
+      const email = data.get("email") || "";
+      const context = data.get("context") || "";
+
+      const subject = "Demande d'audit Kiro";
+      const body =
+        "Nom : " + name +
+        "\nEntreprise : " + company +
+        "\nTaille : " + size +
+        "\nEmail : " + email +
+        "\n\nContexte et tâches répétitives :\n" + context;
+
+      window.location.href =
+        "mailto:contact@kiro.app?subject=" +
+        encodeURIComponent(subject) +
+        "&body=" +
+        encodeURIComponent(body);
+    });
+  }
+</script>
+
+</body>
+</html>
