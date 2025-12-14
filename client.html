@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <title>KIRO – Espace client</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="css/kiro.css" />
+
+  <style>
+    body {
+      background: #02040a;
+    }
+
+    .layout {
+      display: flex;
+      min-height: 100vh;
+    }
+
+    /* SIDEBAR */
+    .sidebar {
+      width: 240px;
+      background: #050811;
+      border-right: 1px solid rgba(255,255,255,0.08);
+      padding: 20px;
+    }
+    .sidebar h3 {
+      color: var(--text-soft);
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: .14em;
+      margin-bottom: 12px;
+    }
+    .sidebar a {
+      display: block;
+      padding: 10px 12px;
+      border-radius: 10px;
+      color: rgba(255,255,255,0.8);
+      margin-bottom: 6px;
+      font-size: 14px;
+    }
+    .sidebar a.active,
+    .sidebar a:hover {
+      background: rgba(0,192,230,0.16);
+      color: #fff;
+    }
+
+    /* MAIN */
+    .main {
+      flex: 1;
+      padding: 32px;
+    }
+
+    .section {
+      margin-bottom: 40px;
+      background: #060a12;
+      border-radius: 20px;
+      border: 1px solid rgba(255,255,255,0.12);
+      padding: 24px 26px 30px;
+      box-shadow: 0 14px 50px rgba(0,0,0,0.4);
+    }
+
+    h2 {
+      font-size: 20px;
+      margin-bottom: 12px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 12px;
+    }
+    table th {
+      text-align: left;
+      font-size: 12px;
+      text-transform: uppercase;
+      color: var(--text-soft);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      padding-bottom: 6px;
+    }
+    table td {
+      padding: 8px 0;
+      font-size: 14px;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .pill {
+      display: inline-block;
+      padding: 3px 10px;
+      border-radius: 999px;
+      font-size: 12px;
+    }
+    .pill.ok { background: rgba(34,197,94,0.18); color: #4ade80; }
+    .pill.warn { background: rgba(234,179,8,0.24); color: #facc15; }
+    .pill.err { background: rgba(239,68,68,0.18); color: #ef4444; }
+    .pill.info { background: rgba(56,189,248,0.24); color: #7dd3fc; }
+
+    .logout {
+      position: fixed;
+      right: 20px;
+      top: 20px;
+      padding: 8px 18px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.16);
+    }
+  </style>
+</head>
+
+<body data-theme="dark">
+<a id="logoutBtn" class="logout nav-cta">Se déconnecter</a>
+
+<div class="layout">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <h3>Navigation</h3>
+    <a href="#" class="active" id="link-home">Synthèse</a>
+    <a href="#factures">Factures</a>
+    <a href="#contrat">Contrat</a>
+    <a href="#tickets">Tickets</a>
+  </aside>
+
+  <!-- MAIN CONTENT -->
+  <main class="main">
+
+    <div class="section">
+      <h2 id="clientName">Chargement...</h2>
+      <p id="clientEmail" style="color:var(--text-soft);"></p>
+    </div>
+<button id="editProfileBtn" class="btn-primary" style="margin-top:12px;">
+  Modifier mon profil
+</button>
+
+<!-- MODALE PROFIL -->
+<div id="profileModal" style="display:none; background:#000000aa; position:fixed; top:0; left:0; width:100%; height:100%; 
+    backdrop-filter:blur(4px); align-items:center; justify-content:center;">
+  <div style="background:#060a12; padding:24px; border-radius:16px; width:400px; border:1px solid rgba(255,255,255,0.2);">
+    <h3>Modifier mon profil</h3>
+
+    <label>Nom / Contact</label>
+    <input id="profileName" class="auth-input" style="width:100%; margin-bottom:12px;" />
+
+    <label>Entreprise</label>
+    <input id="profileCompany" class="auth-input" style="width:100%; margin-bottom:16px;" />
+
+    <button id="saveProfileBtn" class="btn-primary" style="width:100%; margin-bottom:12px;">
+      Enregistrer
+    </button>
+    <button id="closeProfileBtn" class="btn-secondary" style="width:100%;">Annuler</button>
+  </div>
+</div>
+
+    <!-- FACTURES -->
+    <div class="section" id="factures">
+      <h2>Factures</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Numéro</th>
+            <th>Date</th>
+            <th>Montant</th>
+            <th>Statut</th>
+          </tr>
+        </thead>
+        <tbody id="invoiceBody">
+          <!-- Rempli par JS -->
+        </tbody>
+      </table>
+    </div>
+
+    <!-- CONTRAT -->
+    <div class="section" id="contrat">
+      <h2>Contrat</h2>
+      <p id="contractPlan"></p>
+      <p id="contractStatus"></p>
+      <p id="contractRenew"></p>
+    </div>
+
+    <!-- TICKETS -->
+   <div class="section" id="tickets">
+  <h2>Tickets de support</h2>
+
+  <button id="newTicketBtn" class="btn-primary" style="margin-bottom:16px;">
+    + Nouveau ticket
+  </button>
+
+  <!-- MODALE NOUVEAU TICKET -->
+  <div id="ticketModal" style="display:none; background:#000000aa; position:fixed; top:0; left:0; width:100%; height:100%; 
+      backdrop-filter:blur(4px); align-items:center; justify-content:center;">
+    <div style="background:#060a12; padding:24px; border-radius:16px; width:400px; border:1px solid rgba(255,255,255,0.2);">
+      <h3>Créer un ticket</h3>
+
+      <label>Sujet</label>
+      <input id="ticketSubject" class="auth-input" style="width:100%; margin-bottom:12px;" />
+
+      <label>Description</label>
+      <textarea id="ticketDescription" class="auth-input" style="width:100%; height:80px; margin-bottom:12px;"></textarea>
+
+      <label>Priorité</label>
+      <select id="ticketPriority" class="auth-input" style="width:100%; margin-bottom:16px;">
+        <option value="low">Basse</option>
+        <option value="medium">Moyenne</option>
+        <option value="high">Haute</option>
+      </select>
+
+      <button id="submitTicketBtn" class="btn-primary" style="width:100%; margin-bottom:12px;">
+        Envoyer
+      </button>
+      <button id="closeTicketBtn" class="btn-secondary" style="width:100%;">Annuler</button>
+    </div>
+  </div>
+
+
+      <table>
+        <thead>
+          <tr>
+            <th>Sujet</th>
+            <th>Statut</th>
+            <th>Priorité</th>
+          </tr>
+        </thead>
+        <tbody id="ticketBody">
+          <!-- Rempli par JS -->
+        </tbody>
+      </table>
+    </div>
+
+  </main>
+
+</div>
+
+
+<!-- SUPABASE JS -->
+<script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+
+<script>
+  // -------------------------
+  // SUPABASE CONFIG (OK)
+  // -------------------------
+  const SUPABASE_URL = "https://qnksyvjpqqrcnfcpidda.supabase.co";
+  const SUPABASE_ANON_KEY =
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFua3N5dmpwcXFyY25mY3BpZGRhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjUzNTQ0NTMsImV4cCI6MjA4MDkzMDQ1M30.pUyY59t04Ik0jJ6It6YSPdL9WyJ0MlC4Hd4u9EyM4XI";
+
+  const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+
+  // -------------------------
+  // PROTECTION : vérifier session
+  // -------------------------
+  async function checkSession() {
+    const { data: { user }} = await supabase.auth.getUser();
+
+    if (!user) {
+      window.location.href = "login.html";
+      return null;
+    }
+    return user;
+  }
+
+
+  // -------------------------
+  // CHARGEMENT DU DASHBOARD
+  // -------------------------
+  async function loadDashboard() {
+    const user = await checkSession();
+    if (!user) return;
+
+    // EMAIL
+    document.getElementById("clientEmail").textContent = "Email : " + user.email;
+
+    // PROFIL
+    const { data: profile } = await supabase
+      .from("profiles")
+      .select("contact_name")
+      .eq("id", user.id)
+      .maybeSingle();
+
+    const name = profile?.contact_name || "Client Kiro";
+    document.getElementById("clientName").textContent = "Bonjour " + name + " 👋";
+
+
+    // -------------------------
+    // A. FACTURES
+    // -------------------------
+    const { data: invoices } = await supabase
+      .from("invoices")
+      .select("*")
+      .eq("profile_id", user.id)
+      .order("issued_at", { ascending: false });
+
+    const invoiceBody = document.getElementById("invoiceBody");
+    invoiceBody.innerHTML = "";
+
+    (invoices || []).forEach(inv => {
+      const tr = document.createElement("tr");
+      tr.innerHTML = `
+        <td>${inv.number}</td>
+        <td>${new Date(inv.issued_at).toLocaleDateString("fr-FR")}</td>
+        <td>${inv.amount} €</td>
+        <td>
+          <span class="pill ${inv.status === "paid" ? "ok" : inv.status === "pending" ? "warn" : "err"}">
+            ${inv.status}
+          </span>
+        </td>
+      `;
+      invoiceBody.appendChild(tr);
+    });
+
+
+    // -------------------------
+    // B. CONTRAT
+    // -------------------------
+    const { data: contract } = await supabase
+      .from("contracts")
+      .select("*")
+      .eq("profile_id", user.id)
+      .maybeSingle();
+
+    if (contract) {
+      document.getElementById("contractPlan").textContent =
+        "Plan : " + contract.plan;
+
+      document.getElementById("contractStatus").textContent =
+        "Statut : " + contract.status;
+
+      document.getElementById("contractRenew").textContent =
+        "Renouvellement : " + (contract.end_date || "Non renseigné");
+    } else {
+      document.getElementById("contractPlan").textContent =
+        "Aucun contrat actif pour le moment.";
+    }
+
+
+    // -------------------------
+    // C. TICKETS
+    // -------------------------
+    const { data: tickets } = await supabase
+      .from("tickets")
+      .select("*")
+      .eq("profile_id", user.id)
+      .order("created_at", { ascending: false });
+
+    const ticketBody = document.getElementById("ticketBody");
+    ticketBody.innerHTML = "";
+
+    (tickets || []).forEach(t => {
+      const tr = document.createElement("tr");
+
+      const pillClass =
+        t.status === "resolved"
+          ? "ok"
+          : t.status === "in_progress"
+          ? "info"
+          : "warn";
+
+      tr.innerHTML = `
+        <td>${t.subject}</td>
+        <td><span class="pill ${pillClass}">${t.status}</span></td>
+        <td>${t.priority}</td>
+      `;
+
+      ticketBody.appendChild(tr);
+    });
+
+  }
+// -------------------------
+// NOUVEAU TICKET : ouvrir / fermer modale
+// -------------------------
+const ticketModal = document.getElementById("ticketModal");
+document.getElementById("newTicketBtn").onclick = () => ticketModal.style.display = "flex";
+document.getElementById("closeTicketBtn").onclick = () => ticketModal.style.display = "none";
+
+
+// -------------------------
+// NOUVEAU TICKET : envoi dans Supabase
+// -------------------------
+document.getElementById("submitTicketBtn").addEventListener("click", async () => {
+  const { data: { user }} = await supabase.auth.getUser();
+  if (!user) return;
+
+  const subject = document.getElementById("ticketSubject").value.trim();
+  const description = document.getElementById("ticketDescription").value.trim();
+  const priority = document.getElementById("ticketPriority").value;
+
+  if (!subject) {
+    alert("Merci d'ajouter un sujet.");
+    return;
+  }
+
+  const { error } = await supabase.from("tickets").insert({
+    profile_id: user.id,
+    subject,
+    description,
+    priority,
+    status: "open"
+  });
+
+  if (error) {
+    alert("Erreur Supabase : " + error.message);
+    return;
+  }
+
+  alert("Ticket créé !");
+  ticketModal.style.display = "none";
+
+  loadDashboard(); // recharge la liste
+});
+// -----------------------------------------
+// PROFIL : ouvrir modale + pré-remplir
+// -----------------------------------------
+document.getElementById("editProfileBtn").onclick = async () => {
+  const { data: { user }} = await supabase.auth.getUser();
+  if (!user) return;
+
+  const { data: profile } = await supabase
+    .from("profiles")
+    .select("*")
+    .eq("id", user.id)
+    .maybeSingle();
+
+  document.getElementById("profileName").value = profile?.contact_name || "";
+  document.getElementById("profileCompany").value = profile?.company_name || "";
+
+  document.getElementById("profileModal").style.display = "flex";
+};
+
+// fermer la modale
+document.getElementById("closeProfileBtn").onclick = () =>
+  document.getElementById("profileModal").style.display = "none";
+
+
+// -----------------------------------------
+// PROFIL : sauvegarder dans Supabase
+// -----------------------------------------
+document.getElementById("saveProfileBtn").onclick = async () => {
+  const { data: { user }} = await supabase.auth.getUser();
+  if (!user) return;
+
+  const name = document.getElementById("profileName").value.trim();
+  const company = document.getElementById("profileCompany").value.trim();
+
+  const { error } = await supabase
+    .from("profiles")
+    .update({
+      contact_name: name,
+      company_name: company
+    })
+    .eq("id", user.id);
+
+  if (error) {
+    alert("Erreur Supabase : " + error.message);
+    return;
+  }
+
+  alert("Profil mis à jour !");
+  document.getElementById("profileModal").style.display = "none";
+
+  loadDashboard(); // recharge les infos
+};
+
+  // -------------------------
+  // LOGOUT
+  // -------------------------
+  document.getElementById("logoutBtn").addEventListener("click", async () => {
+    await supabase.auth.signOut();
+    window.location.href = "login.html";
+  });
+
+  loadDashboard();
+</script>
+
+</body>
+</html>
